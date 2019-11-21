@@ -3,20 +3,27 @@ import PropTypes from 'prop-types';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
 import { withRouter, NavLink } from 'react-router-dom';
-import { Menu, Dropdown, Header } from 'semantic-ui-react';
+import { Menu, Dropdown, Header, Icon } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 
 /** The NavBar appears at the top of every page. Rendered by the App Layout component. */
 class NavBar extends React.Component {
   render() {
-    const menuStyle = { marginBottom: '10px' };
+    const menuStyle = {
+      fontFamily: 'Staatliches',
+      fontSize: '16px',
+      backgroundColor: '#434343',
+    };
     return (
       <Menu style={menuStyle} attached="top" borderless inverted>
+        <Menu.Item><Icon name='student' color='#F5CB85 !important' size='big'/></Menu.Item>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
-          <Header inverted as='h1'>meteor-application-template</Header>
+          {/* eslint-disable-next-line max-len */}
+          <Header inverted as='h1' style={{ color: '#F5CB85 !important', fontFamily: 'Staatliches' }}>Studious Manoa</Header>
         </Menu.Item>
         {this.props.currentUser ? (
-            [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add Stuff</Menu.Item>,
+            // eslint-disable-next-line max-len
+            [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add' position='right'>Add Stuff</Menu.Item>,
               <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>List Stuff</Menu.Item>]
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
