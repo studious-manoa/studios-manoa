@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet-universal';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import PropTypes from 'prop-types';
+import 'leaflet/dist/leaflet.css';
 
 class MapLeaflet extends Component {
-  constructor() {
-    super();
-    this.state = {
-      lat: 38.895345,
-      lng: -77.030101,
-      zoom: 15,
-    };
-  }
 
   render() {
-    const position = [this.state.lat, this.state.lng];
+    const position = [this.props.lat, this.props.lng];
     return (
-        <Map center={position} zoom={this.state.zoom} style={{ height: 500 }}>
+        <Map center={position} zoom={this.props.zoom} style={{ height: 500 }}>
           <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
           <Marker position={position}>
             <Popup>
-              <span>A pretty CSS3 popup. <br /> Easily customizable.</span>
+              A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
         </Map>
     );
   }
 }
+
+MapLeaflet.propTypes = {
+  lat: PropTypes.number.isRequired,
+  lng: PropTypes.number.isRequired,
+  zoom: PropTypes.number.isRequired,
+  name: PropTypes.string,
+  description: PropTypes.string,
+};
 
 export default MapLeaflet;
