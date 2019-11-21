@@ -1,8 +1,8 @@
 .landing-background {
   background: url("/images/hamilton.jpg") no-repeat center center fixed;
   background-size: cover;
-  padding-top: 150px;
-  padding-bottom: 150px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .landing-background .title {
