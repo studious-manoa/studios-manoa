@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Header, Container, Image, Icon, Grid } from 'semantic-ui-react';
+import { Form, Button, Header, Container, Image, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const Edit = () => (

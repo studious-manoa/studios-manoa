@@ -9,5 +9,135 @@
     { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
     { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
     { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  ],
+
+  "defaultProfiles": [
+    {
+      "firstName": "Eric",
+      "lastName": "Botello",
+      "bio": "I am a computer Engineering student.",
+      "title": "Student",
+      "tags": [
+        "Smelly",
+        "Computers Access"
+      ],
+      "projects":[
+        "Hamilton Library",
+        "Post"
+      ],
+      "picture": "https://erbot.github.io/images/eric.jpg",
+      "email": "botelloe@hawaii.edu"
+    },
+    {
+      "firstName": "Jianna",
+      "lastName": "Orias",
+      "bio": "In my spare time, I like to scuba dive.",
+      "title": "Student",
+      "tags": [
+        "Clean",
+        "Alcohol"
+      ],
+      "projects":[
+        "Ba-Le"
+      ],
+      "picture": "https://jlorias.github.io/images/jianna.jpg",
+      "email": "jlorias@hawaii.edu"
+    },
+    {
+      "firstName": "Rebecca",
+      "lastName": "Vatnebryn",
+      "bio": "Every summer, I enjoy visiting Portland, Oregon.",
+      "title": "Student",
+      "tags": [
+        "Clean",
+        "Large Groups"
+      ],
+      "projects":[
+        "Hamilton Library"
+      ],
+      "picture": "https://rebeccavatnebryn.github.io/images/rebecca.png",
+      "email": "rihv@hawaii.edu"
+    },
+    {
+      "firstName": "Sahra",
+      "lastName": "Moseby",
+      "bio": "I enjoy competitive bicycle racing.",
+      "title": "Student",
+      "tags": [
+        "Small Groups",
+        "Quiet"
+      ],
+      "projects":[
+        "Post"
+      ],
+      "picture": "https://sahramoseby.github.io/images/hei.png",
+      "email": "smoseby@hawaii.edu"
+    },
+    {
+      "firstName": "Nathaniel",
+      "lastName": "Tomchak",
+      "bio": "Most weekends, you can find me on my 8 foot dinghy.",
+      "title": "Student",
+      "tags": [
+        "Off Campus"
+      ],
+      "projects":[
+        "Starbucks"
+      ],
+      "picture": "https://ntomchak.github.io/images/profile.jpg",
+      "email": "ntomchak@hawaii.edu"
+    }
+  ],
+
+  "defaultProjects": [
+    {
+      "name": "Post",
+      "homepage": "https://openpowerquality.org",
+      "description": "Second floor of Post.",
+      "tags": [
+        "Smelly",
+        "Computer Access"
+      ],
+      "picture": "https://avatars0.githubusercontent.com/u/4641939"
+    },
+    {
+      "name": "Hamilton Library",
+      "homepage": "https://radgrad.org",
+      "description": "Air conditioned library.",
+      "tags": [
+        "Chilly"
+      ],
+      "picture": "https://www.radgrad.org/img/radgrad_logo.png"
+    },
+    {
+      "name": "Sinclair Library",
+      "homepage": "https://wrench-project.org",
+      "description": "Sinclair Library is an open-source library for developing simulators for large-scale scientific computation",
+      "tags": [
+        "Hot"
+      ],
+      "picture": "https://wrench-project.org/images/logo-vertical.png"
+    },
+    {
+      "name": "Ba-Le",
+      "homepage": "http://lava.manoa.hawaii.edu/blog/2014/07/11/cyber-canoe-cyber-infrastructure-enabled-collaborative-analysis-navigation-and-observation-environment/",
+      "description": "Asian fusion cuisine with a bar.",
+      "tags": [
+        "Alcohol",
+        "Small Groups"
+      ],
+      "picture": "http://lava.manoa.hawaii.edu/wp-content/uploads/2016/07/CC-logo-small.png"
+    },
+    {
+      "name": "Starbucks",
+      "homepage": "http://lava.manoa.hawaii.edu/blog/2014/07/11/cyber-canoe-cyber-infrastructure-enabled-collaborative-analysis-navigation-and-observation-environment/",
+      "description": "Coffee shop with Wi-Fi.",
+      "tags": [
+        "Coffee",
+        "Small Groups",
+        "Outdoor Seating"
+      ],
+      "picture": "http://lava.manoa.hawaii.edu/wp-content/uploads/2016/07/CC-logo-small.png"
+    }
   ]
 }

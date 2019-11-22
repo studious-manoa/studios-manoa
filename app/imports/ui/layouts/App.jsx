@@ -18,6 +18,12 @@ import EditUserProfile from '../pages/EditUserProfile';
 import Signout from '../pages/Signout';
 import Resetpassword from '../pages/Resetpassword';
 import Footer from '../components/Footer';
+import Home from '../pages/Home';
+import Profiles from '../pages/Profiles';
+import AddProject from '../pages/AddProject';
+import Projects from '../pages/Projects';
+import Filter from '../pages/Filter';
+import Tags from '../pages/Tags';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -28,6 +34,12 @@ class App extends React.Component {
             <NavBar/>
             <Switch>
               <Route exact path="/" component={Landing}/>
+              <ProtectedRoute path="/home" component={Home}/>
+              <Route path="/profiles" component={Profiles}/>
+              <Route path="/projects" component={Projects}/>
+              <Route path="/tags" component={Tags}/>
+              <ProtectedRoute path="/addproject" component={AddProject}/>
+              <ProtectedRoute path="/filter" component={Filter}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/find" component={ListStuff}/>
