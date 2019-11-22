@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Loader, Grid } from 'semantic-ui-react';
+import { Loader, Grid, Header, Card } from 'semantic-ui-react';
 import { Stuffs } from '/imports/api/stuff/Stuff';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -17,11 +17,28 @@ class Location extends React.Component {
   /** Render the page once subscriptions have been received. */
   renderPage() {
     return (
-        <Grid>
-          <Grid.Column width={10}>
-          </Grid.Column>
+        <Grid centered columns={2}>
           <Grid.Column width={5}>
-            <MapLeaflet lat={21.297} lng={-157.817} zoom={17} popupText='Location'></MapLeaflet>
+            <Header textAlign='center' as='h1'>Paradise Palms</Header>
+            <Card centered>
+              <Card.Content>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column textAlign='left'>
+                      <Header as='h5'>Mon</Header>
+                    </Grid.Column>
+                    <Grid.Column textAlign='right'>
+                      <Header as='h5'>8:00am-4:30pm</Header>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <MapLeaflet lat={21.301} lng={-157.8157} zoom={17}
+                        popupText='Paradise Palms'></MapLeaflet>
+            <Header textAlign='center' color="grey" as='h4'>2560 McCarthy Mall, Honolulu, HI 96822</Header>
           </Grid.Column>
         </Grid>
     );
