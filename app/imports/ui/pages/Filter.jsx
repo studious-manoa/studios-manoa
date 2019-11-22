@@ -79,7 +79,7 @@ class Filter extends React.Component {
   renderPage() {
     const allTags = _.pluck(Tags.find().fetch(), 'name');
     const formSchema = makeSchema(allTags);
-    const projects = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
+    const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
     return (
       <Container>
