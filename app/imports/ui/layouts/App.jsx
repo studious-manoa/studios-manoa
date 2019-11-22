@@ -29,11 +29,12 @@ class App extends React.Component {
               <Route exact path="/" component={Landing}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
+              <Route path="/find" component={ListStuff}/>
+              <Route path="/reviews" component={AddStuff}/>
+              <Route path="/add" component={AddStuff}/>
               <Route path="/userprofile" component={UserProfile}/>
               <Route path="/edituserprofile" component={EditUserProfile}/>
               <Route path="/resetpassword" component={Resetpassword}/>
-              <ProtectedRoute path="/list" component={ListStuff}/>
-              <ProtectedRoute path="/add" component={AddStuff}/>
               <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>

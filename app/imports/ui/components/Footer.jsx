@@ -1,17 +1,25 @@
 import React from 'react';
+import { Icon } from 'semantic-ui-react';
 
 /** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
 class Footer extends React.Component {
   render() {
-    const divStyle = { paddingTop: '15px' };
+    const divStyle = {
+      fontFamily: 'Quicksand',
+      fontSize: '18px',
+      paddingTop: '15px',
+      paddingBottom: '30px',
+      backgroundColor: '#434343',
+      color: 'white',
+    };
     return (
         <footer>
-          <div style={divStyle} className="ui center aligned container">
+          <div style={divStyle} className="ui fluid center aligned container">
             <hr />
-              Department of Information and Computer Sciences <br />
-              University of Hawaii<br />
-              Honolulu, HI 96822 <br />
-            <a href="http://ics-software-engineering.github.io/meteor-application-template-react">Template Home Page</a>
+            <Icon circular inverted color='orange' name='student' />
+            <br />
+            Studious Manoa, November 2019 <br />
+            Check out our <a href='https://studious-manoa.github.io'>Github</a> page!
           </div>
         </footer>
     );
