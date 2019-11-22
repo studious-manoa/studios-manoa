@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-
-h2 {
-  color: #E37F1A !important;
-}
-=======
 @import url('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
 
 h2 {
   color: #E37F1A !important;
 }
->>>>>>> issue-03
