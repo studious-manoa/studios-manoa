@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import PropTypes from 'prop-types';
-import 'leaflet/dist/leaflet.css';
 
 class MapLeaflet extends Component {
 
@@ -15,7 +14,7 @@ class MapLeaflet extends Component {
           />
           <Marker position={position}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {this.props.popupText}
             </Popup>
           </Marker>
         </Map>
@@ -27,8 +26,7 @@ MapLeaflet.propTypes = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
   zoom: PropTypes.number.isRequired,
-  name: PropTypes.string,
-  description: PropTypes.string,
+  popupText: PropTypes.string,
 };
 
 export default MapLeaflet;

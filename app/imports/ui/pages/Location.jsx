@@ -21,7 +21,7 @@ class Location extends React.Component {
           <Grid.Column width={10}>
           </Grid.Column>
           <Grid.Column width={5}>
-            <MapLeaflet lat={21.297} lng={-157.817} zoom={17}></MapLeaflet>
+            <MapLeaflet lat={21.297} lng={-157.817} zoom={17} popupText='Location'></MapLeaflet>
           </Grid.Column>
         </Grid>
     );
