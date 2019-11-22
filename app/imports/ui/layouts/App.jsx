@@ -17,6 +17,7 @@ import UserProfile from '../pages/UserProfile';
 import EditUserProfile from '../pages/EditUserProfile';
 import Signout from '../pages/Signout';
 import Resetpassword from '../pages/Resetpassword';
+import Footer from '../components/Footer';
 
 /** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
 class App extends React.Component {
@@ -40,6 +41,7 @@ class App extends React.Component {
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
+            <Footer />
           </div>
         </Router>
     );
