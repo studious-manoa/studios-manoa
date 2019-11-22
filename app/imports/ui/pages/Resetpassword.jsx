@@ -8,7 +8,7 @@ import { Container, Form, Grid, Header, Message, Menu } from 'semantic-ui-react'
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-export default class Signin extends React.Component {
+export default class ResetPassword extends React.Component {
 
   /** Initialize component state with properties for login and redirection. */
   constructor(props) {
@@ -48,17 +48,17 @@ export default class Signin extends React.Component {
                 <Grid.Column width={15}>
                   <div style={{ height: '30px' }}/>
                   <Header as="h2" textAlign="center" size="huge">
-                    Sign in
+                    Reset Password
                   </Header>
                   <Form onSubmit={this.submit}>
                     <Container textAlign='center' style={{ height: '400px', borderRadius: '10px' }}>
                       <div style={{ height: '20px' }}/>
                       <Form.Input
-                          icon="user"
+                          icon="lock"
                           iconPosition="left"
-                          name="email"
-                          type="email"
-                          placeholder="E-mail address"
+                          name="oldpw"
+                          type="oldpw"
+                          placeholder="Old Password"
                           onChange={this.handleChange}
                           style={{ width: '45%' }}
                       />
@@ -66,8 +66,19 @@ export default class Signin extends React.Component {
                       <Form.Input
                           icon="lock"
                           iconPosition="left"
-                          name="password"
-                          placeholder="Password"
+                          name="newpw"
+                          placeholder="New Password"
+                          type="password"
+                          onChange={this.handleChange}
+                          style={{ width: '45%' }}
+
+                      />
+                      <div style={{ height: '10px' }}/>
+                      <Form.Input
+                          icon="lock"
+                          iconPosition="left"
+                          name="newpw"
+                          placeholder="New Password"
                           type="password"
                           onChange={this.handleChange}
                           style={{ width: '45%' }}
@@ -75,13 +86,10 @@ export default class Signin extends React.Component {
                       />
                       <div style={{ height: '10px' }}/>
                       {/* eslint-disable-next-line max-len */}
-                      <Form.Button style={{ width: '45%', backgroundColor: '#ED9921', color: '#FCF3E1' }} content="Continue"/>
+                      <Form.Button style={{ width: '45%', backgroundColor: '#ED9921', color: '#FCF3E1' }} content="Submit"/>
                       <div style={{ height: '10px' }}/>
-                      <a as={NavLink} exact to="/resetpassword" style={{ color: '#767676' }}>Forgot your password?</a>
-                      <Menu.Item icon="sign in" text="Reset Password" as={NavLink} exact to="/resetpassword"/>
-                      <div style={{ height: '10px' }}/>
-                      <a as={NavLink} exact to="/signup" style={{ color: '#767676' }}>Create new user</a>
-                      <Menu.Item icon="sign in" text="Sign Up" as={NavLink} exact to="/signup"/>
+                      <a as={NavLink} exact to="/signin" style={{ color: '#767676' }}>Login to your account</a>
+                      <Menu.Item icon="sign out" text="Sign Out" as={NavLink} exact to="/signout"/>
                     </Container>
                   </Form>
                   {this.state.error === '' ? (
@@ -101,6 +109,6 @@ export default class Signin extends React.Component {
 }
 
 /** Ensure that the React Router location object is available in case we need to redirect. */
-Signin.propTypes = {
+ResetPassword.propTypes = {
   location: PropTypes.object,
 };

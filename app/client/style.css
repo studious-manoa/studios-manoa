@@ -4,4 +4,9 @@
   padding-top: 100px;
   padding-bottom: 100px;
   backdrop-filter: opacity(65%);
+  
+@import url('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
+
+h2 {
+  color: #E37F1A !important;
 }
