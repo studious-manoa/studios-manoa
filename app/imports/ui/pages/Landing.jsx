@@ -7,6 +7,7 @@ class Landing extends React.Component {
     const titleStyle = {
       fontFamily: 'Staatliches',
       fontSize: '75px',
+      color: 'orange',
     };
     const subtitleStyle = {
       fontFamily: 'Quicksand',
@@ -16,14 +17,12 @@ class Landing extends React.Component {
         <div className='landing-background'>
           <Grid stackable centered container columns={1}>
             <Grid.Column textAlign='center'>
-              <Icon inverted name='student' size='massive' />
+              <Icon circular inverted name='student' size='massive' color='orange'/>
               <Header inverted as='h1' style={titleStyle}>Studious Manoa</Header>
               <Header inverted as='h3' style={subtitleStyle}>
                 Find any study spot in, around, and near the University of Hawaii at Manoa campus.
               </Header>
             </Grid.Column>
-            <br />
-            <br />
             <Search
                 fluid
                 placeholder='Search for a Location'

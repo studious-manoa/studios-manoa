@@ -13,18 +13,24 @@ class NavBar extends React.Component {
       fontFamily: 'Staatliches',
       fontSize: '16px',
       backgroundColor: '#434343',
+      color: 'orange',
     };
     return (
       <Menu style={menuStyle} attached="top" borderless inverted>
-        <Menu.Item><Icon name='student' color='#F5CB85 !important' size='big'/></Menu.Item>
+        <Menu.Item><Icon circular inverted name='student' color='orange' size='big'/></Menu.Item>
         <Menu.Item as={NavLink} activeClassName="" exact to="/">
           {/* eslint-disable-next-line max-len */}
-          <Header inverted as='h1' style={{ color: '#F5CB85 !important', fontFamily: 'Staatliches' }}>Studious Manoa</Header>
+          <Header inverted as='h1' style={{ color: 'orange', fontFamily: 'Staatliches' }}>Studious Manoa</Header>
         </Menu.Item>
+        {/* eslint-disable-next-line max-len */}
+        <Menu.Item as={NavLink} activeClassName="active" exact to="/find" key='find'>Find a Location</Menu.Item>
+        {/* eslint-disable-next-line max-len */}
+        <Menu.Item as={NavLink} activeClassName="active" exact to="/reviews" key='reviews'>Reviews</Menu.Item>
         {this.props.currentUser ? (
             // eslint-disable-next-line max-len
-            [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add' position='right'>Add Stuff</Menu.Item>,
-              <Menu.Item as={NavLink} activeClassName="active" exact to="/list" key='list'>List Stuff</Menu.Item>]
+            [<Menu.Item as={NavLink} activeClassName="active" exact to="/add" key='add'>Add a Location</Menu.Item>,
+              // eslint-disable-next-line max-len
+            <Menu.Item as={NavLink} activeClassName="active" exact to="/edit" key='edit'>Edit a Location</Menu.Item>]
         ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
             <Menu.Item as={NavLink} activeClassName="active" exact to="/admin" key='admin'>Admin</Menu.Item>
@@ -34,7 +40,8 @@ class NavBar extends React.Component {
             <Dropdown text="Login" pointing="top right" icon={'user'}>
               <Dropdown.Menu>
                 <Dropdown.Item icon="user" text="Sign In" as={NavLink} exact to="/signin"/>
-                <Dropdown.Item icon="add user" text="Sign Up" as={NavLink} exact to="/signup"/>
+                {/* eslint-disable-next-line max-len */}
+                <Dropdown.Item icon="add user" text="Sign Up" as={NavLink} exact to="/signup" />
               </Dropdown.Menu>
             </Dropdown>
           ) : (

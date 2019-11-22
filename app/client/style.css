@@ -3,8 +3,5 @@
   background-size: cover;
   padding-top: 100px;
   padding-bottom: 100px;
-}
-
-.landing-background .title {
-  font-family: 'Staatliches', sans-serif;
+  backdrop-filter: opacity(65%);
 }
