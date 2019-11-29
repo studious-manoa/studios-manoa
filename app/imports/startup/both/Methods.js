@@ -34,7 +34,8 @@ const updateProfileMethod = 'Profiles.update';
  * updated situation specified by the user.
  */
 Meteor.methods({
-  'Profiles.update'({ email, firstName, lastName, bio, title, picture, tags, projects }) {
+  'Profiles.update'({ data }) {
+    const { email, firstName, lastName, bio, title, picture, tags, projects } = data;
     Profiles.update({ email }, { $set: { email, firstName, lastName, bio, title, picture } });
     ProfilesTags.remove({ profile: email });
     ProfilesProjects.remove({ profile: email });
@@ -47,7 +48,8 @@ const addProjectMethod = 'Projects.add';
 
 /** Creates a new project in the Projects collection, and also updates ProfilesProjects and ProjectsTags. */
 Meteor.methods({
-  'Projects.add'({ name, description, picture, tags, participants, homepage }) {
+  'Projects.add'({ data }) {
+    const { name, description, homepage, picture, tags, participants } = data;
     Projects.insert({ name, description, picture, homepage });
     ProfilesProjects.remove({ project: name });
     ProjectsTags.remove({ project: name });

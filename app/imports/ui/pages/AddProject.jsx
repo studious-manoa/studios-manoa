@@ -13,12 +13,12 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { _ } from 'meteor/underscore';
 import PropTypes from 'prop-types';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
-import { addProjectMethod } from '../../startup/both/Methods';
 import { tagsName, Tags } from '../../api/tags/Tags';
 import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { profilesTagsName } from '../../api/profiles/ProfilesTags';
-import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
-import { projectsName } from '../../api/projects/Projects';
+import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
+import { Projects, projectsName } from '../../api/projects/Projects';
+import { ProjectsTags } from '../../api/projects/ProjectsTags';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allTags, allParticipants) => new SimpleSchema({
@@ -37,13 +37,20 @@ class AddProject extends React.Component {
 
   /** On submit, insert the data. */
   submit(data, formRef) {
-    Meteor.call(addProjectMethod, data, (error) => {
-      if (error) {
-        swal('Error', error.message, 'error');
-      } else {
-        swal('Success', 'Project added successfully', 'success').then(() => formRef.reset());
-      }
-    });
+    const { name, description, homepage, picture, tags, participants } = data;
+    Projects.insert({ name, description, picture, homepage },
+        (error) => {
+          if (error) {
+            swal('Error', error.message, 'error');
+          } else {
+            swal('Success', 'Project added successfully', 'success');
+            formRef.reset();
+          }
+        });
+    //ProfilesProjects.remove({ project: name });
+    //ProjectsTags.remove({ project: name });
+    tags.map((tag) => ProjectsTags.insert({ project: name, tag }));
+    participants.map((participant) => ProfilesProjects.insert({ project: name, profile: participant }));
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
