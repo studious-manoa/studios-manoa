@@ -116,7 +116,7 @@
     {
       "name": "Sinclair Library",
       "homepage": "none",
-      "description": "Sinclair Library is an open-source library for developing simulators for large-scale scientific computation",
+      "description": "Sinclair Library is another library",
       "tags": [
         "Hot",
         "Open Late"
@@ -126,7 +126,7 @@
     {
       "name": "Ba-Le",
       "homepage": "none",
-      "description": "Cafeteria with various foods",
+      "description": "Asian fusion cuisine with a bar.",
       "tags": [
         "Alcohol",
         "Small Groups",
@@ -140,7 +140,7 @@
     {
       "name": "Paradise Palms",
       "homepage": "none",
-      "description": "Asian fusion cuisine with a bar.",
+      "description": "Cafeteria with various foods.",
       "tags": [
         "Small Groups",
         "Large Groups",

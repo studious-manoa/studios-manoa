@@ -9,7 +9,7 @@ import Landing from '../pages/Landing';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
+import EditProject from '../pages/EditProject';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -22,6 +22,7 @@ import Home from '../pages/Home';
 import Profiles from '../pages/Profiles';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
+import ProjectsAdmin from '../pages/ProjectsAdmin';
 import Filter from '../pages/Filter';
 import Tags from '../pages/Tags';
 
@@ -37,6 +38,7 @@ class App extends React.Component {
               <ProtectedRoute path="/home" component={Home}/>
               <Route path="/profiles" component={Profiles}/>
               <Route path="/projects" component={Projects}/>
+              <Route path="/projectsAdmin" component={ProjectsAdmin}/>
               <Route path="/tags" component={Tags}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
               <ProtectedRoute path="/filter" component={Filter}/>
@@ -47,8 +49,9 @@ class App extends React.Component {
               <Route path="/add" component={AddStuff}/>
               <Route path="/userprofile" component={UserProfile}/>
               <Route path="/edituserprofile" component={EditUserProfile}/>
+              <Route path="/editProject" component={EditProject}/>
               <Route path="/resetpassword" component={Resetpassword}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+              <ProtectedRoute path="/edit/:_id" component={EditProject}/>
               <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>

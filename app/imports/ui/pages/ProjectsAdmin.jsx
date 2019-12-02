@@ -23,7 +23,7 @@ function getProjectData(name) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image src={props.project.picture} />
+      <Image src={props.project.picture}/>
       <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
       <Card.Meta>
         <span className='date'>{props.project.title}</span>
@@ -36,6 +36,9 @@ const MakeCard = (props) => (
       {_.map(props.project.tags,
         (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
     </Card.Content>
+    <Card.Content extra>
+      <Link to={`/edit/${props.project._id}`}>Edit</Link>
+    </Card.Content>
   </Card>
 );
 
@@ -44,7 +47,7 @@ MakeCard.propTypes = {
 };
 
 /** Renders the Project Collection as a set of Cards. */
-class ProjectsPage extends React.Component {
+class ProjectsAdmin extends React.Component {
 
   /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
@@ -65,7 +68,7 @@ class ProjectsPage extends React.Component {
   }
 }
 
-ProjectsPage.propTypes = {
+ProjectsAdmin.propTypes = {
   ready: PropTypes.bool.isRequired,
 };
 
@@ -79,4 +82,4 @@ export default withTracker(() => {
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
   };
-})(ProjectsPage);
+})(ProjectsAdmin);

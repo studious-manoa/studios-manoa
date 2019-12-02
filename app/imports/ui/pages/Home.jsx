@@ -17,7 +17,7 @@ import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { ProfilesTags, profilesTagsName } from '../../api/profiles/ProfilesTags';
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
-import { updateProfileMethod } from '../../startup/both/Methods';
+import updateProfileMethod from '../../startup/both/Methods';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allTags, allProjects) => new SimpleSchema({
@@ -27,9 +27,9 @@ const makeSchema = (allTags, allProjects) => new SimpleSchema({
   bio: { type: String, label: 'Biographical statement', optional: true },
   title: { type: String, label: 'Title', optional: true },
   picture: { type: String, label: 'Picture URL', optional: true },
-  tags: { type: Array, label: 'Tags', optional: true },
+  tags: { type: Array, label: 'Preferences', optional: true },
   'tags.$': { type: String, allowedValues: allTags },
-  projects: { type: Array, label: 'Projects', optional: true },
+  projects: { type: Array, label: 'Favorite Places', optional: true },
   'projects.$': { type: String, allowedValues: allProjects },
 });
 
