@@ -71,9 +71,8 @@ class AddProject extends React.Component {
                   <TextField name='homepage' showInlineError={true} placeholder='Homepage URL'/>
                 </Form.Group>
                 <LongTextField name='description' placeholder='Describe the project here'/>
-                <Form.Group widths={'equal'}>
+                <Form.Group widths={3}>
                   <MultiSelectField name='tags' showInlineError={true} placeholder={'Tags'}/>
-                  <MultiSelectField name='participants' showInlineError={true} placeholder={'Participants'}/>
                 </Form.Group>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
