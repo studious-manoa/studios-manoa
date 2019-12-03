@@ -19,7 +19,6 @@ import Signout from '../pages/Signout';
 import Resetpassword from '../pages/Resetpassword';
 import Footer from '../components/Footer';
 import Home from '../pages/Home';
-import Profiles from '../pages/Profiles';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
 import ProjectsAdmin from '../pages/ProjectsAdmin';
@@ -36,7 +35,6 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
-              <Route path="/profiles" component={Profiles}/>
               <Route path="/projects" component={Projects}/>
               <Route path="/projectsAdmin" component={ProjectsAdmin}/>
               <Route path="/tags" component={Tags}/>
