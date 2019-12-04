@@ -91,9 +91,11 @@
 
   "defaultProjects": [
     {
-      "name": "Post",
+      "name": "POST",
       "homepage": "https://openpowerquality.org",
       "description": "Second floor of Post.",
+      "lat": 21.2975,
+      "long": -157.8163,
       "tags": [
         "Smelly",
         "Small Groups",
@@ -117,6 +119,8 @@
       "name": "Sinclair Library",
       "homepage": "none",
       "description": "Sinclair Library is another library",
+      "lat": 21.3005,
+      "long": -157.8160,
       "tags": [
         "Hot",
         "Open Late"
@@ -127,6 +131,8 @@
       "name": "Ba-Le",
       "homepage": "none",
       "description": "Asian fusion cuisine with a bar.",
+      "lat": 21.2988,
+      "long": -157.8197,
       "tags": [
         "Alcohol",
         "Small Groups",
@@ -141,6 +147,8 @@
       "name": "Paradise Palms",
       "homepage": "none",
       "description": "Cafeteria with various foods.",
+      "lat": 21.30088,
+      "long": -157.81563,
       "tags": [
         "Small Groups",
         "Large Groups",
@@ -158,6 +166,8 @@
       "name": "Starbucks",
       "homepage": "http://lava.manoa.hawaii.edu/blog/2014/07/11/cyber-canoe-cyber-infrastructure-enabled-collaborative-analysis-navigation-and-observation-environment/",
       "description": "Coffee shop with Wi-Fi.",
+      "lat": 21.29855,
+      "long": -157.81895,
       "tags": [
         "Coffee",
         "Small Groups",

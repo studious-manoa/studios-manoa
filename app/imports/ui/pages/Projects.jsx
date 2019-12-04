@@ -58,30 +58,32 @@ class ProjectsPage extends React.Component {
     const longitudes = _.pluck(Projects.find().fetch(), 'long');
     const names = _.pluck(Projects.find().fetch(), 'name');
     const locations = _.zip(names, latitudes, longitudes);
-    <MapLeaflet lat={21.301} lng={-157.8157} zoom={17} locations={locations}> < /MapLeaflet>
-      const projectData = names.map(project => getProjectData(project));
-      return (
-      <Container>
-        <Card.Group>
-          {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
-        </Card.Group>
-      </Container>
-      );
-      }
-      }
+    const projectData = names.map(project => getProjectData(project));
+    return (
+        <div>
+          <Container>
+            <MapLeaflet lat={21.297} lng={-157.817} zoom={15} locations={locations}> </MapLeaflet>
+            <Card.Group>
+              {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
+            </Card.Group>
+          </Container>
+        </div>
+    );
+  }
+}
 
-      ProjectsPage.propTypes = {
-      ready: PropTypes.bool.isRequired,
-    };
+ProjectsPage.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
 
-      /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-      export default withTracker(() => {
-      // Ensure that minimongo is populated with all collections prior to running render().
-      const sub1 = Meteor.subscribe(profilesProjectsName);
-      const sub2 = Meteor.subscribe(projectsName);
-      const sub3 = Meteor.subscribe(projectsTagsName);
-      const sub4 = Meteor.subscribe(profilesName);
-      return {
-      ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
-    };
-    })(ProjectsPage);
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(profilesProjectsName);
+  const sub2 = Meteor.subscribe(projectsName);
+  const sub3 = Meteor.subscribe(projectsTagsName);
+  const sub4 = Meteor.subscribe(profilesName);
+  return {
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+  };
+})(ProjectsPage);
