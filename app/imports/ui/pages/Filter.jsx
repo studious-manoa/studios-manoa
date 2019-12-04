@@ -46,7 +46,7 @@ const MakeCard = (props) => (
         (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
     </Card.Content>
     <Card.Content extra>
-      <Header as='h5'>Projects</Header>
+      <Header as='h5'>Matching Locations</Header>
       {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
     </Card.Content>
   </Card>
