@@ -34,18 +34,18 @@ function getProjectData(name) {
 const MakeCard2 = (props) => (
     <Card>
       <Card.Content>
-        <Image src={props.project.picture} />
-        <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
+        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered />
+        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
         </Card.Meta>
-        <Card.Description>
+        <Card.Description style={{ fontFamily: 'Quicksand' }}>
           {props.project.description}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
         {_.map(props.project.tags,
-            (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
+            (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
       </Card.Content>
     </Card>
 );
@@ -79,15 +79,25 @@ class Filter extends React.Component {
     const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
     const stuff = _.pluck(ProjectsTags.find({ tag: { $in: this.state.tags } }).fetch(), 'project');
     const projdata = _.uniq(stuff).map(thing => getProjectData(thing));
+    const margins = {
+      marginTop: '20px',
+      marginBottom: '20px',
+    };
+    const pageStyle = {
+      fontFamily: 'Staatliches',
+      color: 'orange',
+    };
+
     return (
-      <Container>
+      <Container style={margins}>
+        <Header as='h1' textAlign='center' inverted style={pageStyle}>Filter Locations</Header>
         <AutoForm schema={formSchema} onSubmit={data => this.submit(data)} >
           <Segment>
             <MultiSelectField name='tags' showInlineError={true} placeholder={'Tags'}/>
             <SubmitField value='Submit'/>
           </Segment>
         </AutoForm>
-        <Card.Group style={{ paddingTop: '10px' }}>
+        <Card.Group style={margins}>
           {_.map(projdata, (project, index) => <MakeCard2 key={index} project={project}/>)}
         </Card.Group>
       </Container>

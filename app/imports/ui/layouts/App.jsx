@@ -9,6 +9,7 @@ import Landing from '../pages/Landing';
 import ListStuff from '../pages/ListStuff';
 import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddStuff from '../pages/AddStuff';
+import AddReview from '../pages/AddReview';
 import EditProject from '../pages/EditProject';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
@@ -40,11 +41,11 @@ class App extends React.Component {
               <Route path="/projectsAdmin" component={ProjectsAdmin}/>
               <Route path="/tags" component={Tags}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>
-              <ProtectedRoute path="/filter" component={Filter}/>
+              <Route path="/filter" component={Filter}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/find" component={ListStuff}/>
-              <Route path="/reviews" component={AddStuff}/>
+              <Route path="/reviews" component={AddReview}/>
               <Route path="/hadd" component={AddStuff}/>
               <ProtectedRoute path="/add" component={AddContact}/>
               <Route path="/userprofile" component={UserProfile}/>
