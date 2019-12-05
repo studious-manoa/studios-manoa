@@ -21,14 +21,6 @@ const makeSchema = (allTags) => new SimpleSchema({
   'tags.$': { type: String, allowedValues: allTags },
 });
 
-function getProfileData(email) {
-  const data = Profiles.findOne({ email });
-  const tags = _.pluck(ProjectsTags.find({ profile: email }).fetch(), 'tag');
-  const projects = _.pluck(ProfilesProjects.find({ profile: email }).fetch(), 'project');
-  const projectPictures = projects.map(project => Projects.findOne({ name: project }).picture);
-  return _.extend({ }, data, { tags, projects: projectPictures });
-}
-
 /** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
 function getProjectData(name) {
   const data = Projects.findOne({ name });
@@ -37,30 +29,6 @@ function getProjectData(name) {
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
   return _.extend({ }, data, { tags, participants: profilePictures });
 }
-
-/** Component for layout out a Profile Card. */
-const MakeCard = (props) => (
-  <Card>
-    <Card.Content>
-      <Image floated='right' size='mini' src={props.profile.picture} />
-      <Card.Header>{props.profile.firstName} {props.profile.lastName}</Card.Header>
-      <Card.Meta>
-        <span className='date'>{props.profile.title}</span>
-      </Card.Meta>
-      <Card.Description>
-        {props.profile.bio}
-      </Card.Description>
-    </Card.Content>
-    <Card.Content extra>
-      {_.map(props.profile.tags,
-        (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
-    </Card.Content>
-    <Card.Content extra>
-      <Header as='h5'>Matching Locations</Header>
-      {_.map(props.profile.projects, (project, index) => <Image key={index} size='mini' src={project}/>)}
-    </Card.Content>
-  </Card>
-);
 
 /** Component for layout out a Profile Card. */
 const MakeCard2 = (props) => (
@@ -81,11 +49,6 @@ const MakeCard2 = (props) => (
       </Card.Content>
     </Card>
 );
-
-/** Properties */
-MakeCard.propTypes = {
-  profile: PropTypes.object.isRequired,
-};
 
 MakeCard2.propTypes = {
   project: PropTypes.object.isRequired,
@@ -115,7 +78,6 @@ class Filter extends React.Component {
     const formSchema = makeSchema(allTags);
     const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
     const stuff = _.pluck(ProjectsTags.find({ tag: { $in: this.state.tags } }).fetch(), 'project');
-    const profileData = _.uniq(emails).map(email => getProfileData(email));
     const projdata = _.uniq(stuff).map(thing => getProjectData(thing));
     console.log(projdata);
     return (
