@@ -68,7 +68,6 @@ export default class Signup extends React.Component {
                       placeholder="E-mail address"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
-
                   />
                   <div style={{ height: '10px' }}/>
                   <Form.Input
@@ -77,7 +76,6 @@ export default class Signup extends React.Component {
                       type="major"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
-
                   />
                   <div style={{ height: '10px' }}/>
                   <Form.Input
@@ -86,8 +84,6 @@ export default class Signup extends React.Component {
                       type="password"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
-
-
                   />
                   <div style={{ height: '10px' }}/>
                   {/* eslint-disable-next-line max-len */}
