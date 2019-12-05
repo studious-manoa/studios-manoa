@@ -12,7 +12,6 @@ import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { ProfilesTags, profilesTagsName } from '../../api/profiles/ProfilesTags';
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
-import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
@@ -23,19 +22,10 @@ const makeSchema = (allTags) => new SimpleSchema({
 
 function getProfileData(email) {
   const data = Profiles.findOne({ email });
-  const tags = _.pluck(ProjectsTags.find({ profile: email }).fetch(), 'tag');
+  const tags = _.pluck(ProfilesTags.find({ profile: email }).fetch(), 'tag');
   const projects = _.pluck(ProfilesProjects.find({ profile: email }).fetch(), 'project');
   const projectPictures = projects.map(project => Projects.findOne({ name: project }).picture);
   return _.extend({ }, data, { tags, projects: projectPictures });
-}
-
-/** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
-function getProjectData(name) {
-  const data = Projects.findOne({ name });
-  const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
-  const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
-  const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
-  return _.extend({ }, data, { tags, participants: profilePictures });
 }
 
 /** Component for layout out a Profile Card. */
@@ -62,33 +52,9 @@ const MakeCard = (props) => (
   </Card>
 );
 
-/** Component for layout out a Profile Card. */
-const MakeCard2 = (props) => (
-    <Card>
-      <Card.Content>
-        <Image src={props.project.picture} />
-        <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
-        <Card.Meta>
-          <span className='date'>{props.project.title}</span>
-        </Card.Meta>
-        <Card.Description>
-          {props.project.description}
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        {_.map(props.project.tags,
-            (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
-      </Card.Content>
-    </Card>
-);
-
 /** Properties */
 MakeCard.propTypes = {
   profile: PropTypes.object.isRequired,
-};
-
-MakeCard2.propTypes = {
-  project: PropTypes.object.isRequired,
 };
 
 
@@ -114,10 +80,7 @@ class Filter extends React.Component {
     const allTags = _.pluck(Tags.find().fetch(), 'name');
     const formSchema = makeSchema(allTags);
     const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
-    const stuff = _.pluck(ProjectsTags.find({ tag: { $in: this.state.tags } }).fetch(), 'project');
     const profileData = _.uniq(emails).map(email => getProfileData(email));
-    const projdata = _.uniq(stuff).map(thing => getProjectData(thing));
-    console.log(projdata);
     return (
       <Container>
         <AutoForm schema={formSchema} onSubmit={data => this.submit(data)} >
@@ -127,7 +90,7 @@ class Filter extends React.Component {
           </Segment>
         </AutoForm>
         <Card.Group style={{ paddingTop: '10px' }}>
-          {_.map(projdata, (project, index) => <MakeCard2 key={index} project={project}/>)}
+          {_.map(profileData, (profile, index) => <MakeCard key={index} profile={profile}/>)}
         </Card.Group>
       </Container>
     );
@@ -147,8 +110,7 @@ export default withTracker(() => {
   const sub3 = Meteor.subscribe(profilesProjectsName);
   const sub4 = Meteor.subscribe(projectsName);
   const sub5 = Meteor.subscribe(tagsName);
-  const sub6 = Meteor.subscribe(projectsTagsName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
 })(Filter);
