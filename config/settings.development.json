@@ -109,8 +109,8 @@
       "name": "Hamilton Library",
       "homepage": "https://radgrad.org",
       "description": "Air conditioned library.",
-      "lat": 21.2975,
-      "long": -157.8163,
+      "lat": 21.3005,
+      "long": -157.8160,
       "tags": [
         "Chilly",
         "Outlets"
@@ -121,8 +121,8 @@
       "name": "Sinclair Library",
       "homepage": "none",
       "description": "Sinclair Library is another library",
-      "lat": 21.3005,
-      "long": -157.8160,
+      "lat": 21.29854,
+      "long": -157.8204,
       "tags": [
         "Hot",
         "Open Late"
