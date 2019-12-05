@@ -7,24 +7,10 @@ import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesTags } from '../../api/profiles/ProfilesTags';
 import { Tags } from '../../api/tags/Tags';
-import { Stuffs } from '../../api/stuff/Stuff.js';
 
 /* eslint-disable no-console */
 
-/** Initialize the database with a default data document. */
-function addData(data) {
-  console.log(`  Adding: ${data.name} (${data.owner})`);
-  Stuffs.insert(data);
-}
-
 /** Initialize the collection if empty. */
-if (Stuffs.find().count() === 0) {
-  if (Meteor.settings.defaultData) {
-    console.log('Creating default data.');
-    Meteor.settings.defaultData.map(data => addData(data));
-  }
-}
-
 
 /** Define a user in the Meteor accounts package. This enables login. Username is the email address. */
 function createUser(email, role) {
@@ -54,9 +40,9 @@ function addProfile({ firstName, lastName, bio, title, tags, projects, picture, 
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, tags, picture }) {
+function addProject({ name, homepage, description, lat, long, tags, picture }) {
   console.log(`Defining project ${name}`);
-  Projects.insert({ name, homepage, description, picture });
+  Projects.insert({ name, homepage, description, lat, long, picture });
   tags.map(tag => ProjectsTags.insert({ project: name, tag }));
   // Make sure tags are defined in the Tags collection if they weren't already.
   tags.map(tag => addTag(tag));

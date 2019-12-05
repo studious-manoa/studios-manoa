@@ -62,7 +62,7 @@ class ProjectsPage extends React.Component {
     return (
         <div>
           <Container>
-            <MapLeaflet lat={21.297} lng={-157.817} zoom={15} locations={locations}> </MapLeaflet>
+            <MapLeaflet lat={21.2989} lng={-157.817} zoom={16} locations={locations}> </MapLeaflet>
             <Card.Group>
               {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
             </Card.Group>

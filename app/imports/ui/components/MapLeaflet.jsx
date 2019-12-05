@@ -8,7 +8,9 @@ class MapLeaflet extends Component {
   render() {
     const position = [this.props.lat, this.props.lng];
     const locations = _.filter(this.props.locations,
-            location => location[0] !== null && typeof location[1] === 'number' && location[2] === 'number');
+            location => location[0] !== null && typeof location[1] === 'number' && typeof location[2] === 'number');
+    console.log(this.props.locations);
+    console.log(locations);
     return (
         <Map center={position} zoom={this.props.zoom} style={{ height: 500 }}>
           <TileLayer
