@@ -72,7 +72,7 @@ class ProjectsPage extends React.Component {
     const pageStyle = {
       fontFamily: 'Staatliches',
       color: 'orange',
-    }
+    };
     return (
         <div style={locationStyle}>
           <Header as='h1' textAlign='center' inverted style={pageStyle}>Study Spots</Header>
