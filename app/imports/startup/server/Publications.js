@@ -7,6 +7,7 @@ import { ProfilesTags, profilesTagsName } from '../../api/profiles/ProfilesTags'
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
+import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Stuff', function publish() {
@@ -42,3 +43,6 @@ Meteor.publish(projectsName, () => Projects.find());
 
 /** Define a publication to publish this collection. */
 Meteor.publish(projectsTagsName, () => ProjectsTags.find());
+
+/** Define a publication to publish this collection. */
+Meteor.publish(projectsRatingsValue, () => ProjectsRatings.find());
