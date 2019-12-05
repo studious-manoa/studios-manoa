@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Loader, Card, Image, Label } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -24,8 +24,8 @@ function getProjectData(name) {
 const MakeCard = (props) => (
     <Card>
       <Card.Content>
-        <Image src={props.project.picture}/>
-        <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
+        <Image src={props.project.picture} style={{ height: '200px' }} fluid />
+        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
         </Card.Meta>
@@ -35,7 +35,7 @@ const MakeCard = (props) => (
       </Card.Content>
       <Card.Content extra>
         {_.map(props.project.tags,
-            (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
+            (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
       </Card.Content>
     </Card>
 );
@@ -59,11 +59,26 @@ class ProjectsPage extends React.Component {
     const names = _.pluck(Projects.find().fetch(), 'name');
     const locations = _.zip(names, latitudes, longitudes);
     const projectData = names.map(project => getProjectData(project));
+
+    const locationStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
+    const cardStyle = {
+      marginTop: '10px',
+      color: 'orange',
+    };
+    const pageStyle = {
+      fontFamily: 'Staatliches',
+      color: 'orange',
+    }
     return (
-        <div>
+        <div style={locationStyle}>
+          <Header as='h1' textAlign='center' inverted style={pageStyle}>Study Spots</Header>
+          <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
           <Container>
-            <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
-            <Card.Group>
+            <Card.Group centered style={cardStyle}>
               {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
             </Card.Group>
           </Container>
