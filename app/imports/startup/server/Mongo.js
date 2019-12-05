@@ -3,10 +3,12 @@ import { Accounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
 import { Projects } from '../../api/projects/Projects';
 import { ProjectsTags } from '../../api/projects/ProjectsTags';
+import { ProjectsRatings } from '../../api/projects/ProjectsRatings';
 import { Profiles } from '../../api/profiles/Profiles';
 import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesTags } from '../../api/profiles/ProfilesTags';
 import { Tags } from '../../api/tags/Tags';
+import { Ratings } from '../../api/ratings/Ratings';
 
 /* eslint-disable no-console */
 
@@ -25,6 +27,11 @@ function addTag(tag) {
   Tags.update({ name: tag }, { $set: { name: tag } }, { upsert: true });
 }
 
+/** Define an tag.  Has no effect if tag already exists. */
+function addRating(rating) {
+  Ratings.update({ value: rating }, { $set: { value: rating } }, { upsert: true });
+}
+
 /** Defines a new user and associated profile. Error if user already exists. */
 function addProfile({ firstName, lastName, bio, title, tags, projects, picture, email, role }) {
   console.log(`Defining profile ${email}`);
@@ -40,12 +47,15 @@ function addProfile({ firstName, lastName, bio, title, tags, projects, picture, 
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, lat, long, tags, picture }) {
+function addProject({ name, homepage, description, lat, long, tags, ratings, picture }) {
   console.log(`Defining project ${name}`);
   Projects.insert({ name, homepage, description, lat, long, picture });
   tags.map(tag => ProjectsTags.insert({ project: name, tag }));
   // Make sure tags are defined in the Tags collection if they weren't already.
   tags.map(tag => addTag(tag));
+  ratings.map(rating => ProjectsRatings.insert({ project: name, rating }));
+  // Make sure tags are defined in the Tags collection if they weren't already.
+  ratings.map(rating => addRating(rating));
 }
 
 /** Initialize DB if it appears to be empty (i.e. no users defined.) */

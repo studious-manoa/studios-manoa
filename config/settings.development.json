@@ -103,6 +103,9 @@
         "Computer Access",
         "Wi-Fi"
       ],
+      "ratings": [
+        2, 2, 3
+      ],
       "picture": "http://www.soest.hawaii.edu/users/bzelt/Images/POSTfront.jpg"
     },
     {
@@ -115,6 +118,9 @@
         "Chilly",
         "Outlets"
       ],
+      "ratings": [
+        1, 1
+      ],
       "picture": "http://manoa.hawaii.edu/undergrad/ssc/wp-content/uploads/2014/04/university-of-hawaii-manoa-7037e8e9.jpg"
     },
     {
@@ -126,6 +132,9 @@
       "tags": [
         "Hot",
         "Open Late"
+      ],
+      "ratings": [
+        1, 1
       ],
       "picture": "http://manoa.hawaii.edu/undergrad/ssc/wp-content/uploads/2014/04/sinclair002.jpg"
     },
@@ -142,6 +151,9 @@
         "Food",
         "Indoor Seating",
         "Outdoor Seating"
+      ],
+      "ratings": [
+        5, 4
       ],
       "picture": "https://content-service.sodexomyway.com/media/website8_tcm247-25205_w1920_h976.jpg?url=https://uhm.sodexomyway.com/"
     },
@@ -162,6 +174,9 @@
         "Smelly",
         "Loud"
       ],
+      "ratings": [
+        5, 4
+      ],
       "picture": "https://manoa.hawaii.edu/food/paradisePalms_files/stacks_image_27.png"
     },
     {
@@ -175,7 +190,10 @@
         "Small Groups",
         "Outdoor Seating"
       ],
-      "picture": "https://i.ytimg.com/vi/d75XNDMqsJQ/maxresdefault.jpg"
+      "ratings": [
+        5, 3
+      ],
+      "picture": "https://i.ytimg.com/vi/d75XNDMqsJQ/maxresdefault.jpg",
     }
   ]
 }

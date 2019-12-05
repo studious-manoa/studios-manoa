@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Rating } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -10,14 +10,17 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MapLeaflet from '../components/MapLeaflet';
+import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
 
 /** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
 function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
+  const ratings = _.pluck(ProjectsRatings.find({ project: name }).fetch(), 'rating');
+  const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
   const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
-  return _.extend({}, data, { tags, participants: profilePictures });
+  return _.extend({}, data, { tags, avgRating, participants: profilePictures });
 }
 
 /** Component for layout out a Project Card. */
@@ -36,6 +39,9 @@ const MakeCard = (props) => (
       <Card.Content extra>
         {_.map(props.project.tags,
             (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
+      </Card.Content>
+      <Card.Content extra>
+        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled />
       </Card.Content>
     </Card>
 );
@@ -98,7 +104,8 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(projectsName);
   const sub3 = Meteor.subscribe(projectsTagsName);
   const sub4 = Meteor.subscribe(profilesName);
+  const sub5 = Meteor.subscribe(projectsRatingsValue);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
 })(ProjectsPage);

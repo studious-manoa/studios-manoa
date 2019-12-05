@@ -79,7 +79,6 @@ class Filter extends React.Component {
     const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
     const stuff = _.pluck(ProjectsTags.find({ tag: { $in: this.state.tags } }).fetch(), 'project');
     const projdata = _.uniq(stuff).map(thing => getProjectData(thing));
-    console.log(projdata);
     return (
       <Container>
         <AutoForm schema={formSchema} onSubmit={data => this.submit(data)} >
