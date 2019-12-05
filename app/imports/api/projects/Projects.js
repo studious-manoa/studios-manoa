@@ -17,8 +17,8 @@ const ProjectSchema = new SimpleSchema({
   homepage: { type: String, optional: true },
   description: { type: String, optional: true },
   picture: { type: String, optional: true },
-  lat: { type: Number },
-  long: { type: Number },
+  lat: { type: Number, optional: true },
+  long: { type: Number, optional: true },
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */

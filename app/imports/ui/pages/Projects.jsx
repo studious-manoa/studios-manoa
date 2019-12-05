@@ -22,9 +22,9 @@ function getProjectData(name) {
 
 /** Component for layout out a Project Card. */
 const MakeCard = (props) => (
-    <Card>
+    <Card width={1000}>
       <Card.Content>
-        <Image src={props.project.picture} style={{ height: '200px' }} fluid />
+        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered />
         <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
