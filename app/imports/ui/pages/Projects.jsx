@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { withRouter, Link } from 'react-router-dom';
-import { Container, Loader, Card, Image, Label } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -22,9 +21,9 @@ function getProjectData(name) {
 
 /** Component for layout out a Project Card. */
 const MakeCard = (props) => (
-    <Card>
+    <Card width={1000}>
       <Card.Content>
-        <Image src={props.project.picture}/>
+        <Image src={props.project.picture} height={200} width={262} rounded centered/>
         <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
@@ -61,9 +60,10 @@ class ProjectsPage extends React.Component {
     const projectData = names.map(project => getProjectData(project));
     return (
         <div>
+          <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
+          <Header textAlign='center' as='h1'>Browse Study Spots</Header>
           <Container>
-            <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
-            <Card.Group>
+            <Card.Group centered>
               {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
             </Card.Group>
           </Container>
