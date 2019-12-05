@@ -35,7 +35,7 @@ class App extends React.Component {
             <Switch>
               <Route exact path="/" component={Landing}/>
               <ProtectedRoute path="/home" component={Home}/>
-              <Route path="/projects" component={Projects}/>
+              <Route path="/locations" component={Projects}/>
               <Route path="/projectsAdmin" component={ProjectsAdmin}/>
               <Route path="/tags" component={Tags}/>
               <ProtectedRoute path="/addproject" component={AddProject}/>

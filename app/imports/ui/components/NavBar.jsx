@@ -23,7 +23,7 @@ class NavBar extends React.Component {
           <Header inverted as='h1' style={{ color: 'orange', fontFamily: 'Staatliches' }}>Studious Manoa</Header>
         </Menu.Item>
         {/* eslint-disable-next-line max-len */}
-        <Menu.Item as={NavLink} activeClassName="active" exact to="/projects" key='projects'>Locations</Menu.Item>
+        <Menu.Item as={NavLink} activeClassName="active" exact to="/locations" key='projects'>Locations</Menu.Item>
         <Menu.Item as={NavLink} activeClassName="active" exact to="/filter" key='filter'>Filter</Menu.Item>
         {this.props.currentUser ? (
             [<Menu.Item as={NavLink} activeClassName="active" exact to="/reviews" key='reviews'>Reviews</Menu.Item>,
