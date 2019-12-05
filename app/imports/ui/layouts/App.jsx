@@ -18,6 +18,7 @@ import EditUserProfile from '../pages/EditUserProfile';
 import Signout from '../pages/Signout';
 import Resetpassword from '../pages/Resetpassword';
 import Footer from '../components/Footer';
+import AddContact from '../pages/AddContact';
 import Home from '../pages/Home';
 import AddProject from '../pages/AddProject';
 import Projects from '../pages/Projects';
@@ -44,7 +45,8 @@ class App extends React.Component {
               <Route path="/signup" component={Signup}/>
               <Route path="/find" component={ListStuff}/>
               <Route path="/reviews" component={AddStuff}/>
-              <Route path="/add" component={AddStuff}/>
+              <Route path="/hadd" component={AddStuff}/>
+              <ProtectedRoute path="/add" component={AddContact}/>
               <Route path="/userprofile" component={UserProfile}/>
               <Route path="/edituserprofile" component={EditUserProfile}/>
               <Route path="/editProject" component={EditProject}/>

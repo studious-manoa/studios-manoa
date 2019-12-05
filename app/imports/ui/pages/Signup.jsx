@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink, withRouter,  Redirect } from 'react-router-dom';
-import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Menu } from 'semantic-ui-react';
+import { Accounts } from 'meteor/accounts-base';
 
 /**
  * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
  * Authentication errors modify the component’s state to be displayed
  */
-export default class Signin extends React.Component {
+export default class Signup extends React.Component {
 
   /** Initialize component state with properties for login and redirection. */
   constructor(props) {
@@ -21,10 +21,10 @@ export default class Signin extends React.Component {
     this.setState({ [name]: value });
   }
 
-  /** Handle Signin submission using Meteor's account mechanism. */
+  /** Handle Signup submission using Meteor's account mechanism. */
   submit = () => {
     const { email, password } = this.state;
-    Meteor.loginWithPassword(email, password, (err) => {
+    Accounts.createUser({ email, username: email, password }, (err) => {
       if (err) {
         this.setState({ error: err.reason });
       } else {
@@ -33,10 +33,10 @@ export default class Signin extends React.Component {
     });
   }
 
-  /** Render the signin form. */
+  /** Render the signup form. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/' } };
-    // if correct authentication, redirect to page instead of login screen
+    const { from } = this.props.location.state || { from: { pathname: '/add' } };
+    // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
@@ -54,17 +54,18 @@ export default class Signin extends React.Component {
                 <Container textAlign='center' style={{ height: '400px', borderRadius: '10px' }}>
                   <div style={{ height: '20px' }}/>
                   <Form.Input
-                      name="name"
-                      type="name"
+                      name="Name"
                       placeholder="Full name"
+                      type="name"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
+
                   />
                   <div style={{ height: '10px' }}/>
                   <Form.Input
-                      name="Email"
-                      placeholder="Your email-address"
+                      name="email"
                       type="email"
+                      placeholder="E-mail address"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
 
@@ -85,6 +86,7 @@ export default class Signin extends React.Component {
                       type="password"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
+
 
                   />
                   <div style={{ height: '10px' }}/>
@@ -112,6 +114,6 @@ export default class Signin extends React.Component {
 }
 
 /** Ensure that the React Router location object is available in case we need to redirect. */
-Signin.propTypes = {
+Signup.propTypes = {
   location: PropTypes.object,
 };
