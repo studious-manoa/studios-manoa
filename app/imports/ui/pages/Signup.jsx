@@ -35,7 +35,7 @@ export default class Signup extends React.Component {
 
   /** Render the signup form. */
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/add' } };
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
     // if correct authentication, redirect to from: page instead of signup screen
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
@@ -66,14 +66,6 @@ export default class Signup extends React.Component {
                       name="email"
                       type="email"
                       placeholder="E-mail address"
-                      onChange={this.handleChange}
-                      style={{ width: '45%' }}
-                  />
-                  <div style={{ height: '10px' }}/>
-                  <Form.Input
-                      name="Major"
-                      placeholder="Major"
-                      type="major"
                       onChange={this.handleChange}
                       style={{ width: '45%' }}
                   />
