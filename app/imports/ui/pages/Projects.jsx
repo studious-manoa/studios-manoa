@@ -27,8 +27,10 @@ function getProjectData(name) {
 const MakeCard = (props) => (
     <Card width={1000}>
       <Card.Content>
-        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered />
-        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
+        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered/>
+        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>
+          <Link to={`/location/${props.project._id}`}>{props.project.name}</Link>
+        </Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
         </Card.Meta>
@@ -41,7 +43,7 @@ const MakeCard = (props) => (
             (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
       </Card.Content>
       <Card.Content extra>
-        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled />
+        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled/>
       </Card.Content>
     </Card>
 );
