@@ -1,8 +1,11 @@
 import React from 'react';
 import { Grid, Icon, Header, Search } from 'semantic-ui-react';
+import { _ } from 'meteor/underscore';
+import { Projects } from '../../api/projects/Projects';
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
+
   render() {
     const titleStyle = {
       fontFamily: 'Staatliches',

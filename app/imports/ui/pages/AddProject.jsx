@@ -47,8 +47,6 @@ class AddProject extends React.Component {
             formRef.reset();
           }
         });
-    //ProfilesProjects.remove({ project: name });
-    //ProjectsTags.remove({ project: name });
     tags.map((tag) => ProjectsTags.insert({ project: name, tag }));
     participants.map((participant) => ProfilesProjects.insert({ project: name, profile: participant }));
   }
