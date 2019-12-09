@@ -11,7 +11,7 @@ import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddStuff from '../pages/AddStuff';
 import AddReview from '../pages/AddReview';
 import EditProject from '../pages/EditProject';
-import Location from '../pages/Location'
+import Location from '../pages/Location';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
