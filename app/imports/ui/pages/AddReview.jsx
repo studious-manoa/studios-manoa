@@ -18,10 +18,12 @@ import { Tags, tagsName } from '../../api/tags/Tags';
 import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { profilesTagsName } from '../../api/profiles/ProfilesTags';
 import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
-import { projectsName } from '../../api/projects/Projects';
+import { Projects, projectsName } from '../../api/projects/Projects';
+import { ProjectsRatings } from '../../api/projects/ProjectsRatings';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
-const formSchema = new SimpleSchema({
+// const formSchema = new SimpleSchema({
+const makeSchema = (allLocations) => new SimpleSchema({
   name: String,
   rating: Number,
   description: String,
@@ -38,7 +40,7 @@ class AddReview extends React.Component {
   submit(data, formRef) {
     const { name, rating, description, location } = data;
     const owner = Meteor.user().username;
-    console.log(data);
+    ProjectsRatings.insert({ project: location, rating: rating });
     Reviews.insert({ name, rating, owner, description, location },
       (error) => {
         if (error) {
@@ -53,8 +55,8 @@ class AddReview extends React.Component {
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
     let fRef = null;
-    const allTags = _.pluck(Tags.find().fetch(), 'name');
-    const allParticipants = _.pluck(Profiles.find().fetch(), 'email');
+    const allLocations = _.pluck(Projects.find().fetch(), 'name');
+    const formSchema = makeSchema(allLocations);
     const reviewStyle = {
       marginTop: '20px',
       marginBottom: '20px',
