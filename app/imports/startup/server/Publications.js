@@ -8,6 +8,7 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
+import { Reviews, reviewsName } from '../../api/reviews/Reviews';
 
 /** This subscription publishes only the documents associated with the logged in user */
 Meteor.publish('Stuff', function publish() {
@@ -28,6 +29,9 @@ Meteor.publish('StuffAdmin', function publish() {
 
 /** Define a publication to publish all tags. */
 Meteor.publish(tagsName, () => Tags.find());
+
+/** Define a publication to publish all tags. */
+Meteor.publish(reviewsName, () => Reviews.find());
 
 /** Define a publication to publish all profiles. */
 Meteor.publish(profilesName, () => Profiles.find());

@@ -9,6 +9,7 @@ import { ProfilesProjects } from '../../api/profiles/ProfilesProjects';
 import { ProfilesTags } from '../../api/profiles/ProfilesTags';
 import { Tags } from '../../api/tags/Tags';
 import { Ratings } from '../../api/ratings/Ratings';
+import { Reviews } from '../../api/reviews/Reviews';
 
 /* eslint-disable no-console */
 

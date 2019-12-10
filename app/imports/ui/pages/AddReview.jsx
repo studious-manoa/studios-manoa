@@ -1,5 +1,4 @@
 import React from 'react';
-import { Stuffs } from '/imports/api/stuff/Stuff';
 import { Grid, Segment, Header } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
@@ -9,17 +8,26 @@ import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+import { _ } from 'meteor/underscore';
+import PropTypes from 'prop-types';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import SimpleSchema from 'simpl-schema';
+import { Reviews, reviewsName } from '../../api/reviews/Reviews';
+import { Tags, tagsName } from '../../api/tags/Tags';
+import { Profiles, profilesName } from '../../api/profiles/Profiles';
+import { profilesTagsName } from '../../api/profiles/ProfilesTags';
+import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
+import { projectsName } from '../../api/projects/Projects';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const formSchema = new SimpleSchema({
   name: String,
-  quantity: Number,
-  condition: {
+  rating: Number,
+  description: String,
+  location: {
     type: String,
-    allowedValues: ['excellent', 'good', 'fair', 'poor'],
-    defaultValue: 'good',
+    allowedValues: ['Post', 'Starbucks'],
   },
 });
 
@@ -28,9 +36,10 @@ class AddReview extends React.Component {
 
   /** On submit, insert the data. */
   submit(data, formRef) {
-    const { name, quantity, condition } = data;
+    const { name, rating, description, location } = data;
     const owner = Meteor.user().username;
-    Stuffs.insert({ name, quantity, condition, owner },
+    console.log(data);
+    Reviews.insert({ name, rating, owner, description, location },
       (error) => {
         if (error) {
           swal('Error', error.message, 'error');
@@ -44,6 +53,8 @@ class AddReview extends React.Component {
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
   render() {
     let fRef = null;
+    const allTags = _.pluck(Tags.find().fetch(), 'name');
+    const allParticipants = _.pluck(Profiles.find().fetch(), 'email');
     const reviewStyle = {
       marginTop: '20px',
       marginBottom: '20px',
@@ -60,8 +71,9 @@ class AddReview extends React.Component {
             <AutoForm ref={ref => { fRef = ref; }} schema={formSchema} onSubmit={data => this.submit(data, fRef)} >
               <Segment>
                 <TextField name='name'/>
-                <NumField name='quantity' decimal={false}/>
-                <SelectField name='condition'/>
+                <NumField name='rating' decimal={false}/>
+                <TextField name='description'/>
+                <SelectField name='location'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
               </Segment>
@@ -72,4 +84,20 @@ class AddReview extends React.Component {
   }
 }
 
-export default AddReview;
+AddReview.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(tagsName);
+  const sub2 = Meteor.subscribe(profilesName);
+  const sub3 = Meteor.subscribe(profilesTagsName);
+  const sub4 = Meteor.subscribe(profilesProjectsName);
+  const sub5 = Meteor.subscribe(projectsName);
+  const sub6 = Meteor.subscribe(reviewsName);
+  return {
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+  };
+})(AddReview);
