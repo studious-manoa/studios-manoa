@@ -12,7 +12,7 @@
       "title": "Student",
       "tags": [
         "Smelly",
-        "Computers Access"
+        "Computer Access"
       ],
       "projects":[
         "Hamilton Library",
@@ -27,7 +27,6 @@
       "bio": "I am a Computer Engineering student.",
       "title": "Student",
       "tags": [
-        "Clean",
         "Alcohol"
       ],
       "projects":[
@@ -42,7 +41,6 @@
       "bio": "I am an ICS student.",
       "title": "Student",
       "tags": [
-        "Clean",
         "Large Groups"
       ],
       "projects":[
@@ -109,7 +107,9 @@
       "long": -157.8160,
       "tags": [
         "Chilly",
-        "Outlets"
+        "Outlets",
+        "Quiet",
+        "Wi-Fi"
       ],
       "ratings": [
         1, 1
@@ -124,7 +124,9 @@
       "long": -157.8204,
       "tags": [
         "Hot",
-        "Open Late"
+        "Open Late",
+        "Quiet",
+        "Wi-Fi"
       ],
       "ratings": [
         1, 1
@@ -143,7 +145,8 @@
         "Loud",
         "Food",
         "Indoor Seating",
-        "Outdoor Seating"
+        "Outdoor Seating",
+        "Wi-Fi"
       ],
       "ratings": [
         5, 4
@@ -181,6 +184,7 @@
       "tags": [
         "Coffee",
         "Small Groups",
+        "Wi-Fi",
         "Outdoor Seating"
       ],
       "ratings": [
