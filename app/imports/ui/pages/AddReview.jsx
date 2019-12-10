@@ -29,7 +29,7 @@ const makeSchema = (allLocations) => new SimpleSchema({
   description: String,
   location: {
     type: String,
-    allowedValues: ['Post', 'Starbucks'],
+    allowedValues: allLocations,
   },
 });
 
