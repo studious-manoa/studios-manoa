@@ -48,7 +48,7 @@ class App extends React.Component {
               <Route path="/find" component={ListStuff}/>
               <Route path="/reviews" component={AddReview}/>
               <Route path="/hadd" component={AddStuff}/>
-              <Route path="/location/:_id" component={Location}/>
+              <Route path="/location/:name" component={Location}/>
               <ProtectedRoute path="/add" component={AddContact}/>
               <Route path="/userprofile" component={UserProfile}/>
               <Route path="/edituserprofile" component={EditUserProfile}/>

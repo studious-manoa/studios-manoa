@@ -12,7 +12,7 @@ class MapLeaflet extends Component {
     console.log(this.props.locations);
     console.log(locations);
     return (
-        <Map center={position} zoom={this.props.zoom} style={{ height: 500 }}>
+        <Map center={position} zoom={this.props.zoom} style={{ height: 500 }} scrollWheelZoom={false}>
           <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"

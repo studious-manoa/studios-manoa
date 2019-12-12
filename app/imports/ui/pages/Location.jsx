@@ -1,11 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Loader, Header } from 'semantic-ui-react';
+import { Loader, Header, Image } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { Projects, projectsName } from '/imports/api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '/imports/api/projects/ProjectsTags';
 import { ProjectsRatings, projectsRatingsValue } from '/imports/api/projects/ProjectsRatings';
+import MapLeaflet from '../components/MapLeaflet';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
 class Location extends React.Component {
@@ -17,10 +18,15 @@ class Location extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
+    const lat = this.props.project.lat;
+    const lng = this.props.project.long;
     return (
         <div>
           <Header as='h1'>{this.props.project.name}</Header>
-
+          <Image src={this.props.project.picture}/>
+          <MapLeaflet lat={lat} lng={lng}
+                      zoom={17} locations={[[this.props.project.name, lat, lng]]}>
+          </MapLeaflet>
         </div>
     );
   }
@@ -35,17 +41,17 @@ Location.propTypes = {
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
   // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
-  console.log('hello');
-  const documentId = match.params._id;
+  const locationName = match.params.name;
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(projectsName);
-  console.log('hello2');
   // const sub2 = Meteor.subscribe(profilesName);
   const sub3 = Meteor.subscribe(projectsTagsName);
   // const sub4 = Meteor.subscribe(profilesProjectsName);
   const sub5 = Meteor.subscribe(projectsRatingsValue);
   return {
-    project: Projects.findOne(documentId),
+    project: Projects.findOne(
+        { name: locationName },
+    ),
     ready: sub1.ready() && sub3.ready() && sub5.ready(),
   };
 })(Location);
