@@ -17,7 +17,7 @@ const ProfileSchema = new SimpleSchema({
   firstName: { type: String, optional: true },
   lastName: { type: String, optional: true },
   bio: { type: String, optional: true },
-  title: { type: String, optional: true },
+  major: { type: String, optional: true },
   picture: { type: String, optional: true },
 }, { tracker: Tracker });
 
