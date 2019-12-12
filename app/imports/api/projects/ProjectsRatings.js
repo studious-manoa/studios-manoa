@@ -13,8 +13,8 @@ const ProjectRatingSchema = new SimpleSchema({
   project: { type: String, index: true },
   user: { type: String, optional: true },
   rating: {
-    type: Number
-    allowedValues: [1, 2, 3, 4, 5]
+    type: Number,
+    allowedValues: [1, 2, 3, 4, 5],
   },
 }, { tracker: Tracker });
 
