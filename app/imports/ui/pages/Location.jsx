@@ -24,6 +24,7 @@ class Location extends React.Component {
         <div>
           <Header as='h1'>{this.props.project.name}</Header>
           <Image src={this.props.project.picture}/>
+          <p>{this.props.project.description}</p>
           <MapLeaflet lat={lat} lng={lng}
                       zoom={17} locations={[[this.props.project.name, lat, lng]]}>
           </MapLeaflet>
