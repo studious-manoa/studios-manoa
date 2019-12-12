@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Image, Grid, Header, Icon, Button, Rating } from 'semantic-ui-react';
+import { Image, Grid, Header, Icon, Button } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
@@ -16,20 +16,17 @@ class UserProfiles extends React.Component {
               <Image src= '/images/profilpicture.png' size='medium' circular/>
             </Grid.Row>
             <Grid.Row>
-              <Header color={'orange'} as="h1">{this.props.firstName} {this.props.lastName}</Header>
-            </Grid.Row>
-            <Grid.Row divided>
-              <Grid.Column width={2} textAlign={'center'}>
-                <Icon name='mail'/>{this.props.email}
-              </Grid.Column>
-              <Grid.Column width={2} textAlign={'center'}>
-                <Icon name='pencil alternate'/> {this.props.major}
-              </Grid.Column>
-              <br/>
+              <Header color={'orange'} as="h1"> {this.props.firstName} {this.props.lastName}</Header>
             </Grid.Row>
             <Grid.Row>
-              <b>Your Favorite Spot: </b> {this.props.projects}
-              <Rating icon='star' defaultRating={3} maxRating={4}/>
+                <Icon name='mail'/> Mail: {this.props.email}
+            </Grid.Row>
+              <Grid.Row>
+                <Icon name='pencil alternate'/> Major: {this.props.major}
+              </Grid.Row>
+              <br/>
+            <Grid.Row>
+              <Icon name='favorite'/> Your Favorite Spot:  {this.props.projects}
             </Grid.Row>
             <Grid.Row>
               <Button circular color={'orange'} as={Link} to="/EditUserProfile"><Icon name='edit'/>
