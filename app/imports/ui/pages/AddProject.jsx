@@ -50,7 +50,6 @@ class AddProject extends React.Component {
     const { name, description, homepage, picture, tags, participants } = data;
     const lat = data.latlng.lat;
     const long = data.latlng.lng;
-    console.log(data.latlng);
     if (typeof Projects.findOne({ name: name }) === 'undefined') {
       Projects.insert({ name, description, lat, long, picture, homepage },
           (error) => {
@@ -85,6 +84,7 @@ class AddProject extends React.Component {
                   <TextField name='picture' showInlineError={true} placeholder='Project picture URL'/>
                   <TextField name='homepage' showInlineError={true} placeholder='Homepage URL'/>
                 </Form.Group>
+                <Header as='h3'>Drag the marker on the map to the study spot&apos;s location.</Header>
                 <AutoField name='latlng'/>
                 <LongTextField name='description' placeholder='Describe the project here'/>
                 <Form.Group widths={3}>
