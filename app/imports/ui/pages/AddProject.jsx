@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Segment, Header, Form } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
+import AutoField from 'uniforms-semantic/AutoField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
@@ -19,6 +20,7 @@ import { profilesTagsName } from '../../api/profiles/ProfilesTags';
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags } from '../../api/projects/ProjectsTags';
+import MapField from '../forms/controllers/MapField';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allTags, allParticipants) => new SimpleSchema({
@@ -26,6 +28,14 @@ const makeSchema = (allTags, allParticipants) => new SimpleSchema({
   description: String,
   homepage: String,
   picture: String,
+  latlng: {
+    type: Object,
+    uniforms: {
+      component: MapField,
+    },
+  },
+  'latlng.lat': Number,
+  'latlng.lng': Number,
   tags: { type: Array, label: 'Tags', optional: true },
   'tags.$': { type: String, allowedValues: allTags },
   participants: { type: Array, label: 'Participants', optional: true },
@@ -38,19 +48,24 @@ class AddProject extends React.Component {
   /** On submit, insert the data. */
   submit(data, formRef) {
     const { name, description, homepage, picture, tags, participants } = data;
-    Projects.insert({ name, description, picture, homepage },
-        (error) => {
-          if (error) {
-            swal('Error', error.message, 'error');
-          } else {
-            swal('Success', 'Project added successfully', 'success');
-            formRef.reset();
-          }
-        });
-    //ProfilesProjects.remove({ project: name });
-    //ProjectsTags.remove({ project: name });
-    tags.map((tag) => ProjectsTags.insert({ project: name, tag }));
-    participants.map((participant) => ProfilesProjects.insert({ project: name, profile: participant }));
+    const lat = data.latlng.lat;
+    const long = data.latlng.lng;
+    console.log(data.latlng);
+    if (typeof Projects.findOne({ name: name }) === 'undefined') {
+      Projects.insert({ name, description, lat, long, picture, homepage },
+          (error) => {
+            if (error) {
+              swal('Error', error.message, 'error');
+            } else {
+              swal('Success', 'Project added successfully', 'success');
+              formRef.reset();
+            }
+          });
+      tags.map((tag) => ProjectsTags.insert({ project: name, tag }));
+      participants.map((participant) => ProfilesProjects.insert({ project: name, profile: participant }));
+    } else {
+      swal('Error', `${name} has already been posted to the site!`, 'error');
+    }
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
@@ -70,6 +85,7 @@ class AddProject extends React.Component {
                   <TextField name='picture' showInlineError={true} placeholder='Project picture URL'/>
                   <TextField name='homepage' showInlineError={true} placeholder='Homepage URL'/>
                 </Form.Group>
+                <AutoField name='latlng'/>
                 <LongTextField name='description' placeholder='Describe the project here'/>
                 <Form.Group widths={3}>
                   <MultiSelectField name='tags' showInlineError={true} placeholder={'Tags'}/>
