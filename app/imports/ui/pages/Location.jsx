@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Loader, Header, Image, Card } from 'semantic-ui-react';
+import { Loader, Header, Image, Card, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -29,6 +29,7 @@ class Location extends React.Component {
           {_.map(reviews, review => <Card>
             <Card.Content>
               <Card.Header as='h3'> {review.rating} / 5 </Card.Header>
+              <Card.Meta>{review.submitter}</Card.Meta>
               <Card.Description> {review.body}</Card.Description>
             </Card.Content>
           </Card>)}
@@ -43,14 +44,27 @@ class Location extends React.Component {
 
     return (
         <div>
-          <Link to={`/review/${this.props.project._id}`}>Add a review for this location.</Link>
           <Header as='h1'>{this.props.project.name}</Header>
+          <Link to={`/review/${this.props.project._id}`}>Add a review for this location.</Link>
           <div>{this.displayReviews()}</div>
           <Image src={this.props.project.picture}/>
           <p>{this.props.project.description}</p>
           <MapLeaflet lat={lat} lng={lng}
                       zoom={17} locations={[[this.props.project.name, lat, lng]]}>
           </MapLeaflet>
+          <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  Monday:
+                </Grid.Column>
+                <Grid.Column>
+                  (Opens)
+                </Grid.Column>
+                <Grid.Column>
+                  (Closes)
+                </Grid.Column>
+              </Grid.Row>
+          </Grid>
         </div>
     );
   }
