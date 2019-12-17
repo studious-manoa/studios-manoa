@@ -3,7 +3,6 @@ import { Grid, Segment, Header, Form } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import AutoField from 'uniforms-semantic/AutoField';
-import NumField from 'uniforms-semantic/NumField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
