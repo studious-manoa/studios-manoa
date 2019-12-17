@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
+import { Link } from 'react-router-dom';
 import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
