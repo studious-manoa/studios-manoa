@@ -11,12 +11,13 @@ import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MapLeaflet from '../components/MapLeaflet';
 import { Reviews, reviewsName } from '../../api/reviews/Reviews';
+import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
 
 /** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
 function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
-  const ratings = _.pluck(Reviews.find({ project: name }).fetch(), 'rating');
+  const ratings = _.pluck(ProjectsRatings.find({ project: name }).fetch(), 'rating');
   const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
   const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
@@ -105,7 +106,7 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(projectsName);
   const sub3 = Meteor.subscribe(projectsTagsName);
   const sub4 = Meteor.subscribe(profilesName);
-  const sub5 = Meteor.subscribe(reviewsName);
+  const sub5 = Meteor.subscribe(projectsRatingsValue);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };
