@@ -1,11 +1,30 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Search, Grid } from 'semantic-ui-react';
+import { Search, Grid, Label, Card, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 import { Redirect } from 'react-router';
 import { Projects } from '../../api/projects/Projects';
+
+
+const resultRenderer = ({ name, description, picture }) => <Card>
+  <Card.Content>
+    <Image
+        floated='right'
+        size='mini'
+        src= {picture}
+    />
+    <Card.Header>{name}</Card.Header>
+    <Card.Description>{description}</Card.Description>
+  </Card.Content>
+</Card>;
+
+resultRenderer.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  picture: PropTypes.string,
+};
 
 class SearchBar extends Component {
 
@@ -15,6 +34,7 @@ class SearchBar extends Component {
       value: '',
       results: [],
       renderResults: false,
+      name: '',
     };
   }
 
@@ -22,16 +42,19 @@ class SearchBar extends Component {
     this.resetComponent();
   }
 
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
+  resetComponent = () => this.setState({ isLoading: false, results: [], value: '', name: '' });
 
   handleResultSelect = () => {
     this.setState({ renderResults: true });
   };
 
-  handleSearchChange = (e, { value }) => { {
+  // ignoring error because it will break code
+  handleSearchChange = (e, { value }) => {
+ {
     this.setState({ isLoading: true, value });
   }
 
+    // also ignoring this error because it makes no sense
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
 
@@ -50,7 +73,7 @@ class SearchBar extends Component {
 
     if (this.state.renderResults) {
       return <Redirect to={{
-        pathname: '/results',
+        pathname: '/locations',
         state: { referrer: results },
       }}/>;
     }
@@ -67,6 +90,7 @@ class SearchBar extends Component {
                     })}
                     results={results}
                     value={value}
+                    resultRenderer={resultRenderer}
                     {...this.props}
             />
           </Grid.Column>
@@ -75,17 +99,17 @@ class SearchBar extends Component {
   }
 }
 
-/** Require an array of Food documents in the props. */
+/** Require an array of locations documents in the props. */
 SearchBar.propTypes = {
   locations: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 export default withTracker(() => {
-  // Get access to Food documents.
+  // Get access to location documents.
   const subscription = Meteor.subscribe('Projects');
   return {
-    locations: Projects.find({}).fetch(),
+    locations: Projects.find().fetch(),
     ready: subscription.ready(),
   };
 })(SearchBar);
