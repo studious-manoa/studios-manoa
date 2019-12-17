@@ -9,13 +9,13 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MapLeaflet from '../components/MapLeaflet';
-import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
+import { Reviews, reviewsName } from '../../api/reviews/Reviews';
 
 /** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
 function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
-  const ratings = _.pluck(ProjectsRatings.find({ project: name }).fetch(), 'rating');
+  const ratings = _.pluck(Reviews.find({ project: name }).fetch(), 'rating');
   const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
   const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
@@ -26,8 +26,10 @@ function getProjectData(name) {
 const MakeCard = (props) => (
     <Card width={1000}>
       <Card.Content>
-        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered />
-        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
+        <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered/>
+        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>
+          <Link to={`/location/${props.project.name}`}>{props.project.name}</Link>
+        </Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
         </Card.Meta>
@@ -40,7 +42,7 @@ const MakeCard = (props) => (
             (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
       </Card.Content>
       <Card.Content extra>
-        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled />
+        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled/>
       </Card.Content>
     </Card>
 );
@@ -59,10 +61,9 @@ class ProjectsPage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const latitudes = _.pluck(Projects.find().fetch(), 'lat');
-    const longitudes = _.pluck(Projects.find().fetch(), 'long');
     const names = _.pluck(Projects.find().fetch(), 'name');
-    const locations = _.zip(names, latitudes, longitudes);
+    const locations = _.map(Projects.find().fetch(),
+        location => [location.name, location.lat, location.long, location.picture, location.description]);
     const projectData = names.map(project => getProjectData(project));
 
     const locationStyle = {
@@ -103,7 +104,7 @@ export default withTracker(() => {
   const sub2 = Meteor.subscribe(projectsName);
   const sub3 = Meteor.subscribe(projectsTagsName);
   const sub4 = Meteor.subscribe(profilesName);
-  const sub5 = Meteor.subscribe(projectsRatingsValue);
+  const sub5 = Meteor.subscribe(reviewsName);
   return {
     ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready(),
   };

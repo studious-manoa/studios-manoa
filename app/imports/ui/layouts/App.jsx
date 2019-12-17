@@ -11,6 +11,7 @@ import ListStuffAdmin from '../pages/ListStuffAdmin';
 import AddStuff from '../pages/AddStuff';
 import AddReview from '../pages/AddReview';
 import EditProject from '../pages/EditProject';
+import Location from '../pages/Location';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
@@ -45,8 +46,9 @@ class App extends React.Component {
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/find" component={ListStuff}/>
-              <Route path="/reviews" component={AddReview}/>
+              <ProtectedRoute path="/review/:_id" component={AddReview}/>
               <Route path="/hadd" component={AddStuff}/>
+              <Route path="/location/:name" component={Location}/>
               <ProtectedRoute path="/add" component={AddContact}/>
               <Route path="/userprofile" component={UserProfile}/>
               <Route path="/edituserprofile" component={EditUserProfile}/>

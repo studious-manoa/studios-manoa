@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Image, Header } from 'semantic-ui-react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -7,19 +9,21 @@ class MapLeaflet extends Component {
 
   render() {
     const position = [this.props.lat, this.props.lng];
-    const locations = _.filter(this.props.locations,
-            location => location[0] !== null && typeof location[1] === 'number' && typeof location[2] === 'number');
-    console.log(this.props.locations);
-    console.log(locations);
     return (
-        <Map center={position} zoom={this.props.zoom} style={{ height: 500 }}>
+        <Map center={position} zoom={this.props.zoom} style={{ height: 500 }} scrollWheelZoom={false}>
           <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          {_.map(locations, location => <Marker position={[location[1], location[2]]}>
+          {_.map(this.props.locations, location => <Marker position={[location[1], location[2]]}>
             <Popup>
-              {location[0]}
+              <Link to={`/location/${location[0]}`}>
+                <div>
+                  <Header as='h3'>{location[0]}</Header>
+                  <Image src={location[3]} width={192}/>
+                  <div>{location[4]}</div>
+                </div>
+              </Link>
             </Popup>
           </Marker>)}
         </Map>);
@@ -29,7 +33,7 @@ class MapLeaflet extends Component {
 MapLeaflet.propTypes = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
-  // elements in the array: [name, lat, lng]
+  // elements in the array: [name, lat, lng, img url, description]
   locations: PropTypes.array.isRequired,
   zoom: PropTypes.number.isRequired,
 };

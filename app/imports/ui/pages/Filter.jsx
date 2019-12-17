@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import SimpleSchema from 'simpl-schema';
-import { Container, Loader, Card, Image, Label, Header, Segment } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Segment, Rating } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -14,6 +14,8 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
+import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
+import { Link } from 'react-router-dom';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allTags) => new SimpleSchema({
@@ -25,18 +27,21 @@ const makeSchema = (allTags) => new SimpleSchema({
 function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
+  const ratings = _.pluck(ProjectsRatings.find({ project: name }).fetch(), 'rating');
+  const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
   const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
-  return _.extend({ }, data, { tags, participants: profilePictures });
+  return _.extend({ }, data, { tags, avgRating, participants: profilePictures });
 }
 
 /** Component for layout out a Profile Card. */
 const MakeCard2 = (props) => (
-    <Card>
+    <Card width={1000}>
       <Card.Content>
         <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered />
-        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>{props.project.name}</Card.Header>
-        <Card.Meta>
+        <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>
+          <Link to={`/location/${props.project.name}`}>{props.project.name}</Link>
+        </Card.Header>        <Card.Meta>
           <span className='date'>{props.project.title}</span>
         </Card.Meta>
         <Card.Description style={{ fontFamily: 'Quicksand' }}>
@@ -46,6 +51,9 @@ const MakeCard2 = (props) => (
       <Card.Content extra>
         {_.map(props.project.tags,
             (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
+      </Card.Content>
+      <Card.Content extra>
+        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled/>
       </Card.Content>
     </Card>
 );
@@ -119,7 +127,8 @@ export default withTracker(() => {
   const sub4 = Meteor.subscribe(projectsName);
   const sub5 = Meteor.subscribe(tagsName);
   const sub6 = Meteor.subscribe(projectsTagsName);
+  const sub7 = Meteor.subscribe(projectsRatingsValue);
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready() && sub7.ready(),
   };
 })(Filter);

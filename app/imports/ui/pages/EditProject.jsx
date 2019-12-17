@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, Segment, Header, Form, Loader } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
+import AutoField from 'uniforms-semantic/AutoField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import swal from 'sweetalert';
@@ -18,6 +19,7 @@ import { Tags, tagsName } from '../../api/tags/Tags';
 // import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
+import MapField from '../forms/controllers/MapField';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 
@@ -26,6 +28,14 @@ const makeSchema3 = (allTags, allProjects) => new SimpleSchema({
   description: { type: String, label: 'Description', optional: true },
   homepage: { type: String, label: 'Homepage', optional: true },
   picture: { type: String, label: 'Picture', optional: true },
+  latlng: {
+    type: Object,
+    uniforms: {
+      component: MapField,
+    },
+  },
+  'latlng.lat': Number,
+  'latlng.lng': Number,
   tags: { type: Array, label: 'Tags', optional: true },
   'tags.$': { type: String, allowedValues: allTags },
   projects: { type: Array, label: 'Projects', optional: true },
@@ -40,8 +50,10 @@ class EditProject extends React.Component {
     const { name, description, homepage, picture, tags, _id } = data;
     // selectedProject = name;
     console.log(_id);
+    const lat = data.latlng.lat;
+    const long = data.latlng.lng;
     // const project = Projects.findOne({ selectedProject });
-    Projects.update(_id, { $set: { name, description, homepage, picture, tags } }, (error) => {
+    Projects.update(_id, { $set: { name, description, homepage, lat, long, picture, tags } }, (error) => {
       if (error) {
         swal('Error', error.message, 'error');
       } else {
@@ -86,6 +98,8 @@ class EditProject extends React.Component {
                 <TextField name='homepage' showInlineError={true} placeholder={'Homepage'}/>
                 <TextField name='picture' showInlineError={true} placeholder={'URL to picture'}/>
               </Form.Group>
+              <Header as='h3'>Drag the marker on the map to the study spot&apos;s location.</Header>
+              <AutoField name='latlng'/>
               <Form.Group widths={'equal'}>
                 <MultiSelectField name='tags' showInlineError={true} placeholder={'Tags'}/>
               </Form.Group>

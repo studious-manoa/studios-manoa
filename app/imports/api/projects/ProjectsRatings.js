@@ -10,8 +10,12 @@ const ProjectsRatings = new Mongo.Collection(projectsRatingsValue);
 
 /** Define a schema to specify the structure of each document in the collection. */
 const ProjectRatingSchema = new SimpleSchema({
-  project: String,
-  rating: Number,
+  project: { type: String, index: true },
+  user: { type: String, optional: true },
+  rating: {
+    type: Number,
+    allowedValues: [1, 2, 3, 4, 5],
+  },
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */
