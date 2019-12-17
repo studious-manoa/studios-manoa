@@ -25,14 +25,6 @@ class NavBar extends React.Component {
         {/* eslint-disable-next-line max-len */}
         <Menu.Item as={NavLink} activeClassName="active" exact to="/locations" key='projects'>Locations</Menu.Item>
         <Menu.Item as={NavLink} activeClassName="active" exact to="/filter" key='filter'>Filter</Menu.Item>
-        {this.props.currentUser ? (
-            [<Menu.Item as={NavLink} activeClassName="active" exact to="/reviews" key='reviews'>Reviews</Menu.Item>,
-              <Menu.Item as={NavLink} activeClassName="active" exact to="/userprofile" key='userprofile'>
-                My Profile</Menu.Item>,
-              // <Menu.Item as={NavLink} activeClassName="active" exact to="/editUserProfile" key='editUserProfile'>
-               // Edit Profile</Menu.Item>
-            ]
-        ) : ''}
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
             // eslint-disable-next-line max-len
             [<Menu.Item as={NavLink} activeClassName="active" exact to="/projectsAdmin" key='projectsAdmin'>Edit Locations</Menu.Item>,

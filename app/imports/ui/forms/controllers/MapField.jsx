@@ -10,7 +10,7 @@ function MapInput({ onChange, value }) {
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          <Marker ref={this.markerRef} position={'lat' in value ? value : [21.2989, -157.817]} draggable={true}
+          <Marker position={'lat' in value ? value : [21.2989, -157.817]} draggable={true}
                   onDragend={event => onChange(event.target._latlng)}>
           </Marker>)
         </Map>

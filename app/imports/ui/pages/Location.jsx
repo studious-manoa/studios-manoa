@@ -1,11 +1,12 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Loader, Header, Image } from 'semantic-ui-react';
+import { Loader, Header, Image, Card, Grid } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
+import { _ } from 'meteor/underscore';
+import { Link } from 'react-router-dom';
 import { Projects, projectsName } from '/imports/api/projects/Projects';
-import { ProjectsTags, projectsTagsName } from '/imports/api/projects/ProjectsTags';
-import { ProjectsRatings, projectsRatingsValue } from '/imports/api/projects/ProjectsRatings';
+import { Reviews, reviewsName } from '/imports/api/reviews/Reviews';
 import MapLeaflet from '../components/MapLeaflet';
 
 /** Renders a table containing all of the Stuff documents. Use <StuffItem> to render each row. */
@@ -16,18 +17,54 @@ class Location extends React.Component {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
+  displayReviews() {
+    const reviews = Reviews.find().fetch({ location: this.props.project._id });
+    // if there are no reviews, it will say there are no reviews.
+    if (reviews.length === 0) return <div> This location doesn&apos;t have any reviews yet. </div>;
+    // if there are reviews, they will be displayed.
+    // displays the 10 most recent reviews in cards
+    return (
+        <div>
+          <Header as='h2'>Recent reviews</Header>
+          {_.map(reviews, review => <Card>
+            <Card.Content>
+              <Card.Header as='h3'> {review.rating} / 5 </Card.Header>
+              <Card.Meta>{review.submitter}</Card.Meta>
+              <Card.Description> {review.body}</Card.Description>
+            </Card.Content>
+          </Card>)}
+        </div>
+    );
+  }
+
   /** Render the page once subscriptions have been received. */
   renderPage() {
     const lat = this.props.project.lat;
     const lng = this.props.project.long;
+
     return (
         <div>
           <Header as='h1'>{this.props.project.name}</Header>
+          <Link to={`/review/${this.props.project._id}`}>Add a review for this location.</Link>
+          <div>{this.displayReviews()}</div>
           <Image src={this.props.project.picture}/>
           <p>{this.props.project.description}</p>
           <MapLeaflet lat={lat} lng={lng}
                       zoom={17} locations={[[this.props.project.name, lat, lng]]}>
           </MapLeaflet>
+          <Grid>
+              <Grid.Row>
+                <Grid.Column>
+                  Monday:
+                </Grid.Column>
+                <Grid.Column>
+                  (Opens)
+                </Grid.Column>
+                <Grid.Column>
+                  (Closes)
+                </Grid.Column>
+              </Grid.Row>
+          </Grid>
         </div>
     );
   }
@@ -46,13 +83,12 @@ export default withTracker(({ match }) => {
   // Ensure that minimongo is populated with all collections prior to running render().
   const sub1 = Meteor.subscribe(projectsName);
   // const sub2 = Meteor.subscribe(profilesName);
-  const sub3 = Meteor.subscribe(projectsTagsName);
+  const sub3 = Meteor.subscribe(reviewsName);
   // const sub4 = Meteor.subscribe(profilesProjectsName);
-  const sub5 = Meteor.subscribe(projectsRatingsValue);
   return {
     project: Projects.findOne(
         { name: locationName },
     ),
-    ready: sub1.ready() && sub3.ready() && sub5.ready(),
+    ready: sub1.ready() && sub3.ready(),
   };
 })(Location);

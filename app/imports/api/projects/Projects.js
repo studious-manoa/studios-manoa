@@ -15,10 +15,10 @@ const Projects = new Mongo.Collection(projectsName);
 const ProjectSchema = new SimpleSchema({
   name: { type: String, index: true, unique: true },
   homepage: { type: String, optional: true },
-  description: { type: String, optional: true },
-  picture: { type: String, optional: true },
-  lat: { type: Number, optional: true },
-  long: { type: Number, optional: true },
+  description: { type: String },
+  picture: { type: String },
+  lat: { type: Number },
+  long: { type: Number },
 }, { tracker: Tracker });
 
 /** Attach this schema to the collection. */
