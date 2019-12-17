@@ -1,8 +1,13 @@
 import React from 'react';
-import { Grid, Icon, Header, Search } from 'semantic-ui-react';
+import { Grid, Icon, Header } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import SearchBar from '/imports/ui/components/SearchBar';
+
+/* search bar */
 
 /** A simple static component to render some text for the landing page. */
 class Landing extends React.Component {
+
   render() {
     const titleStyle = {
       fontFamily: 'Staatliches',
@@ -23,14 +28,17 @@ class Landing extends React.Component {
                 Find any study spot in, around, and near the University of Hawaii at Manoa campus.
               </Header>
             </Grid.Column>
-            <Search
-                fluid
-                placeholder='Search for a Location'
-            />
+            <SearchBar />
           </Grid>
         </div>
     );
   }
 }
 
+// export default Landing;
+Landing.propTypes = {
+  ready: PropTypes.bool.isRequired,
+};
+
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
 export default Landing;

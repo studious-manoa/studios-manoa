@@ -13,8 +13,8 @@ import PropTypes from 'prop-types';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import SimpleSchema from 'simpl-schema';
 import { Reviews, reviewsName } from '../../api/reviews/Reviews';
-import { Tags, tagsName } from '../../api/tags/Tags';
-import { Profiles, profilesName } from '../../api/profiles/Profiles';
+import { tagsName } from '../../api/tags/Tags';
+import { profilesName } from '../../api/profiles/Profiles';
 import { profilesTagsName } from '../../api/profiles/ProfilesTags';
 import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
