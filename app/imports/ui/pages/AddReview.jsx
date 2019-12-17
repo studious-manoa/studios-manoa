@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid, Segment, Header } from 'semantic-ui-react';
+import { Grid, Segment, Header, Loader } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
-import TextField from 'uniforms-semantic/TextField';
+import LongTextField from 'uniforms-semantic/LongTextField';
 import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import swal from 'sweetalert';
@@ -23,40 +22,45 @@ import { ProjectsRatings } from '../../api/projects/ProjectsRatings';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 // const formSchema = new SimpleSchema({
-const makeSchema = (allLocations) => new SimpleSchema({
-  name: String,
-  rating: Number,
-  description: String,
-  location: {
-    type: String,
-    allowedValues: allLocations,
+const makeSchema = new SimpleSchema({
+  rating: {
+    type: Number,
+    allowedValues: [1, 2, 3, 4, 5],
   },
+  review: String,
 });
 
 /** Renders the Page for adding a document. */
 class AddReview extends React.Component {
 
   /** On submit, insert the data. */
-  submit(data, formRef) {
-    const { name, rating, description, location } = data;
-    const owner = Meteor.user().username;
-    ProjectsRatings.insert({ project: location, rating: rating });
-    Reviews.insert({ name, rating, owner, description, location },
-      (error) => {
-        if (error) {
-          swal('Error', error.message, 'error');
-        } else {
-          swal('Success', 'Item added successfully', 'success');
-          formRef.reset();
-        }
-      });
+  submit(data, formRef, location) {
+    const rating = data.rating;
+    const body = data.review;
+    const submitter = Meteor.user().username;
+    if (typeof Reviews.findOne({ location: { location }, submitter: { submitter } }) !== 'undefined') {
+      swal('Error', 'You have already submitted a review for this study spot.', 'error');
+    } else {
+      Reviews.insert({ submitter, rating, body, location },
+          (error) => {
+            if (error) {
+              swal('Error', error.message, 'error');
+            } else {
+              swal('Success', 'Item added successfully', 'success');
+              formRef.reset();
+            }
+          });
+    }
+  }
+
+  render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
 
   /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
-  render() {
+  renderPage() {
     let fRef = null;
-    const allLocations = _.pluck(Projects.find().fetch(), 'name');
-    const formSchema = makeSchema(allLocations);
+    const formSchema = makeSchema;
     const reviewStyle = {
       marginTop: '20px',
       marginBottom: '20px',
@@ -69,13 +73,12 @@ class AddReview extends React.Component {
     return (
         <Grid container centered style={reviewStyle}>
           <Grid.Column>
-            <Header as="h1" textAlign="center" style={pageStyle}>Reviews</Header>
-            <AutoForm ref={ref => { fRef = ref; }} schema={formSchema} onSubmit={data => this.submit(data, fRef)} >
+            <Header as="h1" textAlign="center" style={pageStyle}>Review for {this.props.location.name}</Header>
+            <AutoForm ref={ref => { fRef = ref; }}
+                      schema={formSchema} onSubmit={data => this.submit(data, fRef, this.props.location._id)} >
               <Segment>
-                <TextField name='name'/>
                 <NumField name='rating' decimal={false}/>
-                <TextField name='description'/>
-                <SelectField name='location'/>
+                <LongTextField name='review'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>
               </Segment>
@@ -87,19 +90,21 @@ class AddReview extends React.Component {
 }
 
 AddReview.propTypes = {
+  location: PropTypes.object.isRequired,
   ready: PropTypes.bool.isRequired,
 };
 
 /** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
-export default withTracker(() => {
+export default withTracker(({ match }) => {
   // Ensure that minimongo is populated with all collections prior to running render().
-  const sub1 = Meteor.subscribe(tagsName);
-  const sub2 = Meteor.subscribe(profilesName);
-  const sub3 = Meteor.subscribe(profilesTagsName);
-  const sub4 = Meteor.subscribe(profilesProjectsName);
-  const sub5 = Meteor.subscribe(projectsName);
-  const sub6 = Meteor.subscribe(reviewsName);
+  const locationId = match.params._id;
+  const sub = Meteor.subscribe(reviewsName);
+  const sub2 = Meteor.subscribe(projectsName);
+  // console.log(sub.ready() && sub2.ready());
   return {
-    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready() && sub5.ready() && sub6.ready(),
+    location: Projects.findOne(
+        { _id: locationId },
+    ),
+    ready: sub.ready() && sub2.ready(),
   };
 })(AddReview);
