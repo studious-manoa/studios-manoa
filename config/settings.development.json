@@ -25,7 +25,7 @@
       "firstName": "Jianna",
       "lastName": "Orias",
       "bio": "I am a Computer Engineering student.",
-      "title": "Student",
+      "major": "Student",
       "tags": [
         "Alcohol"
       ],
@@ -39,7 +39,7 @@
       "firstName": "Rebecca",
       "lastName": "Vatnebryn",
       "bio": "I am an ICS student.",
-      "title": "Student",
+      "major": "Student",
       "tags": [
         "Large Groups"
       ],
@@ -53,7 +53,7 @@
       "firstName": "Sahra",
       "lastName": "Moseby",
       "bio": "I am an ICS student.",
-      "title": "Student",
+      "major": "Student",
       "tags": [
         "Small Groups",
         "Quiet"
@@ -68,7 +68,7 @@
       "firstName": "Nathaniel",
       "lastName": "Tomchak",
       "bio": "I am an ICS student.",
-      "title": "Student",
+      "major": "Student",
       "tags": [
         "Off Campus"
       ],

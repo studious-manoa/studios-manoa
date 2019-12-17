@@ -1,35 +1,52 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Image, Grid, Header, Icon, Button } from 'semantic-ui-react';
+import { Image, Grid, Header, Icon, Button, Loader, Modal } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
+import { tagsName } from '../../api/tags/Tags';
+import { Profiles, profilesName } from '../../api/profiles/Profiles';
+import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 
+
+/** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
+function getProfileData(email) {
+  const data = Profiles.find({ email: email }).fetch();
+  console.log(data[0]);
+  return data[0];
+}
 
 class UserProfiles extends React.Component {
 
+  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
   render() {
+    return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
+  }
+
+  /** Render the page once subscriptions have been received. */
+  renderPage() {
+    const profileData = getProfileData('botelloe@hawaii.edu');
+
     return (
         <div><br/>
           <Grid columns={3} padded centered>
             <Grid.Row>
-              <Image src= '/images/profilpicture.png' size='medium' circular/>
+              <Image src={profileData.picture} size='medium' circular/>
             </Grid.Row>
             <Grid.Row>
-              <Header color={'orange'} as="h1"> {this.props.firstName} {this.props.lastName}</Header>
+              <Header color={'orange'} as="h1"> {profileData.firstName} {profileData.lastName}</Header>
             </Grid.Row>
             <Grid.Row>
-                <Icon name='mail'/> Mail: {this.props.email}
+                <Icon name='mail'/> Mail: {profileData.email}
             </Grid.Row>
               <Grid.Row>
-                <Icon name='pencil alternate'/> Major: {this.props.major}
+                <Icon name='pencil alternate'/> Major: {profileData.major}
               </Grid.Row>
               <br/>
             <Grid.Row>
-              <Icon name='favorite'/> Your Favorite Spot:  {this.props.projects}
+              <Icon name='favorite'/> Your Favorite Spot:  {profileData.firstName}
             </Grid.Row>
             <Grid.Row>
-              <Button circular color={'orange'} as={Link} to="/EditUserProfile"><Icon name='edit'/>
+              <Button circular color={'orange'}><Icon name='edit'/>
                 Edit profile</Button>
             </Grid.Row>
           </Grid>
@@ -39,20 +56,16 @@ class UserProfiles extends React.Component {
 }
 
 UserProfiles.propTypes = {
-  email: PropTypes.string,
-  firstName: PropTypes.string,
-  lastName: PropTypes.string,
-  major: PropTypes.string,
-  projects: PropTypes.string,
+  ready: PropTypes.bool.isRequired,
 };
 
-const up = withTracker(() => ({
-  email: Meteor.user() ? Meteor.user().username : '',
-  firstName: Meteor.user() ? Meteor.user().firstName : '',
-  lastName: Meteor.user() ? Meteor.user().lastName : '',
-  major: Meteor.user() ? Meteor.user().major : '',
-  projects: Meteor.user() ? Meteor.user().projects : '',
-}))(UserProfiles);
-
-
-export default withRouter(up);
+/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+export default withTracker(() => {
+  // Ensure that minimongo is populated with all collections prior to running render().
+  const sub1 = Meteor.subscribe(tagsName);
+  const sub2 = Meteor.subscribe(profilesName);
+  const sub4 = Meteor.subscribe(profilesProjectsName);
+  return {
+    ready: sub1.ready() && sub2.ready() && sub4.ready(),
+  };
+})(UserProfiles);

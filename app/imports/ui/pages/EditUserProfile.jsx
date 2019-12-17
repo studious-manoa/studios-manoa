@@ -26,16 +26,14 @@ const makeSchema = (allProjects) => new SimpleSchema({
   lastName: { type: String, label: 'Last', optional: true },
   major: { type: String, label: 'Major', optional: true },
   picture: { type: String, label: 'Picture URL', optional: true },
-  projects: { type: Array, label: 'Favorite Places', optional: true },
-  'projects.$': { type: String, allowedValues: allProjects },
 });
 /** Renders the Home Page: what appears after the user logs in. */
 class Home extends React.Component {
 
   /** On submit, insert the data. */
   submit(data, formRef) {
-    const { firstName, lastName, email, major } = data;
-    Profiles.update({ firstName, lastName, email, major },
+    const { email, firstName, lastName, major, picture } = data;
+    Profiles.update({ email, firstName, lastName, major, picture },
         (error) => {
           if (error) {
             swal('Error', error.message, 'error');
@@ -68,7 +66,6 @@ class Home extends React.Component {
             <Header textAlign="center" color={'orange'} as="h1">Edit Profile</Header>
             <AutoForm model={model} schema={formSchema} onSubmit={data => this.submit(data)}>
               <Image src='/images/profilpicture.png' size='small' circular/>
-              <br/><Button circular showInlineError={true}><Icon name='picture'/>Change profile picture</Button>
               <Form.Field width={'10'}>
                 <TextField align={'left'} name='firstName' showInlineError={true} placeholder={'First Name'}/>
               </Form.Field>
@@ -82,10 +79,9 @@ class Home extends React.Component {
                 <TextField align={'left'} name='major' showInlineError={true} placeholder={'Major'}/>
               </Form.Field>
               <Form.Field width={'10'}>
-                <MultiSelectField align={'left'} name='projects'
-                                  showInlineError={true} placeholder={'Projects'}/>
+                <TextField align={'left'} name='picture' showInlineError={true} placeholder={'Picture URL'}/>
               </Form.Field>
-              <SubmitField value='Submit' as={Link} name='submit' to="/UserProfile" />
+              <SubmitField value='Submit' name='submit' />
               <ErrorsField/>
             </AutoForm>
           </Form.Group>

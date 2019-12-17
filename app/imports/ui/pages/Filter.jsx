@@ -15,7 +15,6 @@ import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MultiSelectField from '../forms/controllers/MultiSelectField';
 import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
-import { Link } from 'react-router-dom';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = (allTags) => new SimpleSchema({
@@ -84,7 +83,6 @@ class Filter extends React.Component {
   renderPage() {
     const allTags = _.pluck(Tags.find().fetch(), 'name');
     const formSchema = makeSchema(allTags);
-    const emails = _.pluck(ProfilesTags.find({ tag: { $in: this.state.tags } }).fetch(), 'profile');
     const stuff = _.pluck(ProjectsTags.find({ tag: { $in: this.state.tags } }).fetch(), 'project');
     const projdata = _.uniq(stuff).map(thing => getProjectData(thing));
     const margins = {
