@@ -62,10 +62,9 @@ class ProjectsPage extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
-    const latitudes = _.pluck(Projects.find().fetch(), 'lat');
-    const longitudes = _.pluck(Projects.find().fetch(), 'long');
     const names = _.pluck(Projects.find().fetch(), 'name');
-    const locations = _.zip(names, latitudes, longitudes);
+    const locations = _.map(Projects.find.fetch(),
+        location => [location.name, location.lat, location.long, location.picture, location.description]);
     const projectData = names.map(project => getProjectData(project));
 
     const locationStyle = {
