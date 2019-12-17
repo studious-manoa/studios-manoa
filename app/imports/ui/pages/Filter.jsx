@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import AutoForm from 'uniforms-semantic/AutoForm';
+import { Link } from 'react-router-dom';
 import { Tags, tagsName } from '../../api/tags/Tags';
 import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { ProfilesTags, profilesTagsName } from '../../api/profiles/ProfilesTags';
