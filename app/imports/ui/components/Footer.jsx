@@ -19,7 +19,8 @@ class Footer extends React.Component {
             <hr />
             <Icon circular inverted color='orange' name='student' />
             <br />
-            Studious Manoa, November 2019 <br />
+            Studious Manoa, 2019 Fall Semester<br />
+            ICS 314, Software Engineering I<br />
             Check out our <a href='https://studious-manoa.github.io'>Github</a> page!
           </div>
         </footer>
