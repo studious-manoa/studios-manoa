@@ -13,7 +13,7 @@ import SimpleSchema from 'simpl-schema';
 import { tagsName } from '../../api/tags/Tags';
 import { Profiles, profilesName } from '../../api/profiles/Profiles';
 import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/ProfilesProjects';
-import { Projects } from '../../api/projects/Projects';
+import { Projects, projectsName } from '../../api/projects/Projects';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 const makeSchema = () => new SimpleSchema({
@@ -146,7 +146,8 @@ export default withTracker(() => {
   const sub1 = Meteor.subscribe(tagsName);
   const sub2 = Meteor.subscribe(profilesName);
   const sub4 = Meteor.subscribe(profilesProjectsName);
+  const sub3 = Meteor.subscribe(projectsName);
   return {
-    ready: sub1.ready() && sub2.ready() && sub4.ready(),
+    ready: sub1.ready() && sub2.ready() && sub3.ready() && sub4.ready(),
   };
 })(UserProfiles);

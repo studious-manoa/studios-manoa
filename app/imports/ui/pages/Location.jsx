@@ -39,6 +39,7 @@ class Location extends React.Component {
 
   /** Render the page once subscriptions have been received. */
   renderPage() {
+    console.log(this.props.project);
     const lat = this.props.project.lat;
     const lng = this.props.project.long;
 
@@ -114,6 +115,7 @@ export default withTracker(({ match }) => {
   // const sub2 = Meteor.subscribe(profilesName);
   const sub3 = Meteor.subscribe(reviewsName);
   // const sub4 = Meteor.subscribe(profilesProjectsName);
+  console.log(match.params.name)
   return {
     project: Projects.findOne(
         { name: locationName },

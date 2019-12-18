@@ -32,7 +32,7 @@ const MakeCard = (props) => (
       <Card.Content>
         <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered/>
         <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>
-          <Link to={`/${props.project.name}`}>{props.project.name}</Link>
+          <Link to={`/location/${props.project.name}`}>{props.project.name}</Link>
         </Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
