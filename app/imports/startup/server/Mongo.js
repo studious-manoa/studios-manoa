@@ -48,9 +48,9 @@ function addProfile({ firstName, lastName, bio, title, tags, projects, picture, 
 }
 
 /** Define a new project. Error if project already exists.  */
-function addProject({ name, homepage, description, lat, long, tags, ratings, picture }) {
+function addProject({ name, submitter, homepage, description, lat, long, tags, ratings, picture }) {
   console.log(`Defining project ${name}`);
-  Projects.insert({ name, homepage, description, lat, long, picture });
+  Projects.insert({ name, submitter, homepage, description, lat, long, picture });
   tags.map(tag => ProjectsTags.insert({ project: name, tag }));
   // Make sure tags are defined in the Tags collection if they weren't already.
   tags.map(tag => addTag(tag));

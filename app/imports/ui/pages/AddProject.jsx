@@ -63,8 +63,9 @@ class AddProject extends React.Component {
     const { name, description, homepage, picture, tags, participants } = data;
     const lat = data.latlng.lat;
     const long = data.latlng.lng;
+    const submitter = Meteor.user().username;
     if (typeof Projects.findOne({ name: name }) === 'undefined') {
-      Projects.insert({ name, description, lat, long, picture, homepage },
+      Projects.insert({ name, submitter, description, lat, long, picture, homepage },
           (error) => {
             if (error) {
               swal('Error', error.message, 'error');

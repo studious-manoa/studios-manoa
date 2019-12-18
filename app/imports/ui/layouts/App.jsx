@@ -41,13 +41,11 @@ class App extends React.Component {
               <Route path="/locations" component={Projects}/>
               <Route path="/projectsAdmin" component={ProjectsAdmin}/>
               <Route path="/tags" component={Tags}/>
-              <ProtectedRoute path="/addproject" component={AddProject}/>
+              <ProtectedRoute path="/addlocation" component={AddProject}/>
               <Route path="/filter" component={Filter}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <Route path="/find" component={ListStuff}/>
               <ProtectedRoute path="/review/:_id" component={AddReview}/>
-              <Route path="/hadd" component={AddStuff}/>
               <Route path="/:name" component={Location}/>
               <ProtectedRoute path="/add" component={AddContact}/>
               <Route path="/userprofile" component={UserProfile}/>
