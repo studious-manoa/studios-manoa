@@ -83,15 +83,22 @@ class EditProject extends React.Component {
     // const stuff = Projects.findOne({ name: 'Post' });
     // const model = _.extend({}, stuff, { tags });
 
+    const locationStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
+    const pageStyle = {
+      fontFamily: 'Staatliches',
+      color: 'orange',
+    };
+
     return (
-      <Grid container centered>
+      <Grid container centered style={locationStyle}>
         <Grid.Column>
-          <Header as="h2" textAlign="center">This Location Profile</Header>
+          <Header as="h2" textAlign="center" style={pageStyle}>Edit Location Profile</Header>
           <AutoForm model={this.props.doc} schema={formSchema} onSubmit={data => this.submit(data)}>
             <Segment>
-              {/* <Form.Group widths={'equal'}>
-                <MultiSelectField name='projects' showInlineError={true} placeholder={'Projects'}/>
-              </Form.Group> */}
               <LongTextField name='description' placeholder='Write a little bit about the location.'/>
               <Form.Group widths={'equal'}>
                 <TextField name='name' showInlineError={true} placeholder={'Name'} disabled/>

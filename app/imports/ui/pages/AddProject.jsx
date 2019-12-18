@@ -89,10 +89,19 @@ class AddProject extends React.Component {
     const allTags = _.pluck(Tags.find().fetch(), 'name');
     const allParticipants = _.pluck(Profiles.find().fetch(), 'email');
     const formSchema = makeSchema(allTags, allParticipants);
+    const reviewStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
+    const titleStyle = {
+      fontFamily: 'Staatliches',
+      color: 'orange',
+    };
     return (
-        <Grid container centered>
+        <Grid container centered style={reviewStyle}>
           <Grid.Column>
-            <Header as="h2" textAlign="center">Add Location</Header>
+            <Header as="h1" textAlign="center" style={titleStyle}>Add Location</Header>
             <AutoForm ref={ref => {
               fRef = ref;
             }} schema={formSchema} onSubmit={data => this.submit(data, fRef)}>

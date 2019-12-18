@@ -10,7 +10,7 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MapLeaflet from '../components/MapLeaflet';
-import { Reviews, reviewsName } from '../../api/reviews/Reviews';
+// import { Reviews, reviewsName } from '../../api/reviews/Reviews';
 import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
 
 /** Gets the Project data as well as Profiles and Tags associated with the passed Project name. */
@@ -30,7 +30,7 @@ const MakeCard = (props) => (
       <Card.Content>
         <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered/>
         <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches' }}>
-          <Link to={`/location/${props.project.name}`}>{props.project.name}</Link>
+          <Link to={`/${props.project.name}`}>{props.project.name}</Link>
         </Card.Header>
         <Card.Meta>
           <span className='date'>{props.project.title}</span>
@@ -44,7 +44,7 @@ const MakeCard = (props) => (
             (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
       </Card.Content>
       <Card.Content extra>
-        <Rating defaultRating={props.project.avgRating} maxRating={5} disabled/>
+        <Rating defaultRating={props.project.avgRating} maxRating={5} enabled/>
       </Card.Content>
     </Card>
 );
@@ -81,6 +81,7 @@ class ProjectsPage extends React.Component {
       fontFamily: 'Staatliches',
       color: 'orange',
     };
+
     return (
         <div style={locationStyle}>
           <Header as='h1' textAlign='center' inverted style={pageStyle}>Study Spots</Header>

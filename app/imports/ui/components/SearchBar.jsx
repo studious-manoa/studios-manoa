@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Search, Grid, Label, Card, Image } from 'semantic-ui-react';
+import { Search, Grid, Card, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
@@ -65,12 +65,12 @@ class SearchBar extends Component {
         isLoading: false,
         results: _.filter(this.props.locations, isMatch),
       });
+      console.log(this.state.results)
     }, 300);
   };
 
   render() {
     const { isLoading, value, results } = this.state;
-
     if (this.state.renderResults) {
       return <Redirect to={{
         pathname: '/locations',
