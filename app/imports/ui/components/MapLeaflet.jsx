@@ -17,7 +17,7 @@ class MapLeaflet extends Component {
           />
           {_.map(this.props.locations, location => <Marker position={[location[1], location[2]]}>
             <Popup>
-              <Link to={`/location/${location[0]}`}>
+              <Link to={`/${location[0]}`}>
                 <div>
                   <Header as='h3'>{location[0]}</Header>
                   <Image src={location[3]} width={192}/>

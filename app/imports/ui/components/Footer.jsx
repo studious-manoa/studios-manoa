@@ -14,6 +14,7 @@ class Footer extends React.Component {
     };
     return (
         <footer>
+
           <div style={divStyle} className="ui fluid center aligned container">
             <hr />
             <Icon circular inverted color='orange' name='student' />
