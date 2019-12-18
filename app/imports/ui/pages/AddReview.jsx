@@ -1,31 +1,29 @@
 import React from 'react';
-import { Grid, Segment, Header, Loader } from 'semantic-ui-react';
+import { Grid, Segment, Header, Loader, Container } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import LongTextField from 'uniforms-semantic/LongTextField';
-import NumField from 'uniforms-semantic/NumField';
+import AutoField from 'uniforms-semantic/AutoField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
 import swal from 'sweetalert';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { _ } from 'meteor/underscore';
 import PropTypes from 'prop-types';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import SimpleSchema from 'simpl-schema';
 import { Reviews, reviewsName } from '../../api/reviews/Reviews';
-import { tagsName } from '../../api/tags/Tags';
-import { profilesName } from '../../api/profiles/Profiles';
-import { profilesTagsName } from '../../api/profiles/ProfilesTags';
-import { profilesProjectsName } from '../../api/profiles/ProfilesProjects';
 import { Projects, projectsName } from '../../api/projects/Projects';
-import { ProjectsRatings } from '../../api/projects/ProjectsRatings';
+import RatingField from '../forms/controllers/RatingField';
 
 /** Create a schema to specify the structure of the data to appear in the form. */
 // const formSchema = new SimpleSchema({
 const makeSchema = new SimpleSchema({
   rating: {
-    type: Number,
+    type: SimpleSchema.Integer,
     allowedValues: [1, 2, 3, 4, 5],
+    uniforms: {
+      component: RatingField,
+    },
   },
   review: String,
 });
@@ -38,7 +36,9 @@ class AddReview extends React.Component {
     const rating = data.rating;
     const body = data.review;
     const submitter = Meteor.user().username;
-    if (typeof Reviews.findOne({ location: { location }, submitter: { submitter } }) !== 'undefined') {
+    console.log(Reviews.findOne({ location: location, submitter: submitter }));
+    console.log(location);
+    if (typeof Reviews.findOne({ location: location, submitter: submitter }) !== 'undefined') {
       swal('Error', 'You have already submitted a review for this study spot.', 'error');
     } else {
       Reviews.insert({ submitter, rating, body, location },
@@ -77,7 +77,9 @@ class AddReview extends React.Component {
             <AutoForm ref={ref => { fRef = ref; }}
                       schema={formSchema} onSubmit={data => this.submit(data, fRef, this.props.location._id)} >
               <Segment>
-                <NumField name='rating' decimal={false}/>
+                <Container>
+                  <AutoField name='rating'/>
+                </Container>
                 <LongTextField name='review'/>
                 <SubmitField value='Submit'/>
                 <ErrorsField/>

@@ -18,14 +18,14 @@ class Location extends React.Component {
   }
 
   displayReviews() {
-    const reviews = Reviews.find().fetch({ location: this.props.project._id });
+    const reviews = Reviews.find({ location: this.props.project._id }).fetch();
     // if there are no reviews, it will say there are no reviews.
     if (reviews.length === 0) return <div> This location doesn&apos;t have any reviews yet. </div>;
     // if there are reviews, they will be displayed.
     // displays the 10 most recent reviews in cards
     return (
         <div>
-          <Header as='h2'>Recent reviews</Header>
+          <Header as='h2' style={{ fontFamily: 'Quicksand' }}>Recent reviews</Header>
           {_.map(reviews, review => <Card>
             <Card.Content>
               <Card.Header as='h3'> {review.rating} / 5 </Card.Header>
@@ -42,29 +42,58 @@ class Location extends React.Component {
     const lat = this.props.project.lat;
     const lng = this.props.project.long;
 
+    const locationStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
+    const titleStyle = {
+      fontFamily: 'Staatliches',
+      fontSize: '50px',
+      color: 'orange',
+    };
+    const headerStyle = {
+      fontFamily: 'Quicksand',
+      fontSize: '25px',
+      color: 'black',
+      marginTop: '20px',
+      marginBottom: '20px',
+    };
+    const cardStyle = {
+      fontFamily: 'Quicksand',
+      fontSize: '14px',
+      color: 'black',
+      marginTop: '20px',
+      marginBottom: '20px',
+    };
+    const imageStyle = {
+      height: '500px',
+      width: '500px',
+    };
+    const marginsOnly = {
+      marginTop: '20px',
+      marginBottom: '20px',
+    };
     return (
-        <div>
-          <Header as='h1'>{this.props.project.name}</Header>
-          <Link to={`/review/${this.props.project._id}`}>Add a review for this location.</Link>
-          <div>{this.displayReviews()}</div>
-          <Image src={this.props.project.picture}/>
-          <p>{this.props.project.description}</p>
-          <MapLeaflet lat={lat} lng={lng}
-                      zoom={17} locations={[[this.props.project.name, lat, lng]]}>
-          </MapLeaflet>
-          <Grid>
-              <Grid.Row>
-                <Grid.Column>
-                  Monday:
-                </Grid.Column>
-                <Grid.Column>
-                  (Opens)
-                </Grid.Column>
-                <Grid.Column>
-                  (Closes)
-                </Grid.Column>
-              </Grid.Row>
+        <div style={locationStyle}>
+          <Grid centered container columns={2} style={marginsOnly}>
+            <Grid.Column>
+              <Image fluid bordered rounded src={this.props.project.picture} style={imageStyle}/>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as='h1' textAlign='center' style={titleStyle}>{this.props.project.name}</Header>
+              <Header as='h2' textAlign='center' style={headerStyle}>{this.props.project.description}</Header>
+              <div style={cardStyle}>{this.displayReviews()}</div>
+              {/* eslint-disable-next-line max-len */}
+              <Link to={`/review/${this.props.project._id}`} style={{ fontSize: '20px', fontFamily: 'Quicksand', marginTop: '10px' }}>Add a review for this location.</Link>
+
+            </Grid.Column>
           </Grid>
+          <MapLeaflet lat={lat} lng={lng}
+                      zoom={17} locations={[[this.props.project.name, lat, lng]]}
+                      fluid
+          >
+          </MapLeaflet>
         </div>
     );
   }

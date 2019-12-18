@@ -3,7 +3,6 @@ import { Grid, Segment, Header, Form } from 'semantic-ui-react';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import AutoField from 'uniforms-semantic/AutoField';
-import NumField from 'uniforms-semantic/NumField';
 import LongTextField from 'uniforms-semantic/LongTextField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
@@ -64,8 +63,9 @@ class AddProject extends React.Component {
     const { name, description, homepage, picture, tags, participants } = data;
     const lat = data.latlng.lat;
     const long = data.latlng.lng;
+    const submitter = Meteor.user().username;
     if (typeof Projects.findOne({ name: name }) === 'undefined') {
-      Projects.insert({ name, description, lat, long, picture, homepage },
+      Projects.insert({ name, submitter, description, lat, long, picture, homepage },
           (error) => {
             if (error) {
               swal('Error', error.message, 'error');
@@ -90,10 +90,19 @@ class AddProject extends React.Component {
     const allTags = _.pluck(Tags.find().fetch(), 'name');
     const allParticipants = _.pluck(Profiles.find().fetch(), 'email');
     const formSchema = makeSchema(allTags, allParticipants);
+    const reviewStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
+    const titleStyle = {
+      fontFamily: 'Staatliches',
+      color: 'orange',
+    };
     return (
-        <Grid container centered>
+        <Grid container centered style={reviewStyle}>
           <Grid.Column>
-            <Header as="h2" textAlign="center">Add Location</Header>
+            <Header as="h1" textAlign="center" style={titleStyle}>Add Location</Header>
             <AutoForm ref={ref => {
               fRef = ref;
             }} schema={formSchema} onSubmit={data => this.submit(data, fRef)}>

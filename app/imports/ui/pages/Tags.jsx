@@ -25,7 +25,8 @@ function getTagData(name) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Card.Header style={{ marginTop: '0px' }}>{props.tag.name}</Card.Header>
+      {/* eslint-disable-next-line max-len */}
+      <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches', color: 'orange' }}>{props.tag.name}</Card.Header>
     </Card.Content>
     <Card.Content extra>
       {_.map(props.tag.profiles, (p, index) => <Image key={index} circular size='mini' src={p}/>)}
@@ -50,9 +51,14 @@ class TagsPage extends React.Component {
   renderPage() {
     const tags = _.pluck(Tags.find().fetch(), 'name');
     const tagData = tags.map(tag => getTagData(tag));
+    const reviewStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
     return (
-      <Container>
-        <Card.Group>
+      <Container style={reviewStyle}>
+        <Card.Group centered>
           {_.map(tagData, (tag, index) => <MakeCard key={index} tag={tag}/>)}
         </Card.Group>
       </Container>
