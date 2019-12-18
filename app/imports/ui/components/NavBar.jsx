@@ -27,7 +27,7 @@ class NavBar extends React.Component {
         <Menu.Item as={NavLink} activeClassName="active" exact to="/filter" key='filter'>Filter</Menu.Item>
         {Roles.userIsInRole(Meteor.userId(), 'admin') ? (
             // eslint-disable-next-line max-len
-            [<Menu.Item as={NavLink} activeClassName="active" exact to="/projectsAdmin" key='projectsAdmin'>Edit Locations</Menu.Item>,
+            [<Menu.Item as={NavLink} activeClassName="active" exact to="/locationsAdmin" key='projectsAdmin'>Edit Locations</Menu.Item>,
             <Menu.Item as={NavLink} activeClassName="active"
                        exact to="/addlocation" key='addP'>Add Location</Menu.Item>,
             <Menu.Item as={NavLink} activeClassName="active" exact to="/profiles" key='profiles'>Profiles</Menu.Item>,
