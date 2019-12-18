@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header, Rating, Icon, Segment } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Rating, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -10,7 +10,6 @@ import { ProfilesProjects, profilesProjectsName } from '../../api/profiles/Profi
 import { Projects, projectsName } from '../../api/projects/Projects';
 import { ProjectsTags, projectsTagsName } from '../../api/projects/ProjectsTags';
 import MapLeaflet from '../components/MapLeaflet';
-import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/ProjectsRatings';
 import { Reviews, reviewsName } from '../../api/reviews/Reviews';
 
 
