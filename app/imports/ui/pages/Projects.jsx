@@ -89,12 +89,13 @@ class ProjectsPage extends React.Component {
           <Header as='h1' textAlign='center' inverted style={pageStyle}>Study Spots</Header>
           <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
           <Container>
-            <div style={ { display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
-              <Link to='/addlocation'><Icon name='plus'/>&nbsp;Add a study spot</Link>
-            </div>
             <Card.Group centered style={cardStyle}>
               {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
             </Card.Group>
+            <div style={ { display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
+              {/* eslint-disable-next-line max-len */}
+              <Link to='/addlocation' style={{ fontFamily: 'Quicksand', fontSize: '20px', marginTop: '20px' }}><Icon name='plus'/>&nbsp;Add a study spot</Link>
+            </div>
           </Container>
         </div>
     );
