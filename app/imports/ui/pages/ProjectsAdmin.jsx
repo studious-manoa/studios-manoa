@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { withRouter, Link } from 'react-router-dom';
-import { Container, Loader, Card, Image, Label } from 'semantic-ui-react';
+import { Grid, Loader, Card, Image, Label } from 'semantic-ui-react';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import { _ } from 'meteor/underscore';
@@ -23,8 +23,9 @@ function getProjectData(name) {
 const MakeCard = (props) => (
   <Card>
     <Card.Content>
-      <Image src={props.project.picture}/>
-      <Card.Header style={{ marginTop: '0px' }}>{props.project.name}</Card.Header>
+      <Image src={props.project.picture} style={{ height: '200px' }} fluid rounded centered/>
+      {/* eslint-disable-next-line max-len */}
+      <Card.Header style={{ marginTop: '0px', fontFamily: 'Staatliches', color: 'orange' }}>{props.project.name}</Card.Header>
       <Card.Meta>
         <span className='date'>{props.project.title}</span>
       </Card.Meta>
@@ -34,7 +35,7 @@ const MakeCard = (props) => (
     </Card.Content>
     <Card.Content extra>
       {_.map(props.project.tags,
-        (tag, index) => <Label key={index} size='tiny' color='teal'>{tag}</Label>)}
+        (tag, index) => <Label key={index} size='tiny' color='orange'>{tag}</Label>)}
     </Card.Content>
     <Card.Content extra>
       <Link to={`/edit/${props.project._id}`}>Edit</Link>
@@ -58,12 +59,17 @@ class ProjectsAdmin extends React.Component {
   renderPage() {
     const projects = _.pluck(Projects.find().fetch(), 'name');
     const projectData = projects.map(project => getProjectData(project));
+    const reviewStyle = {
+      marginTop: '20px',
+      marginBottom: '20px',
+      fontFamily: 'Quicksand',
+    };
     return (
-      <Container>
-        <Card.Group>
+      <Grid fluid container style={reviewStyle}>
+        <Card.Group centered>
           {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
         </Card.Group>
-      </Container>
+      </Grid>
     );
   }
 }
