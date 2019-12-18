@@ -108,6 +108,16 @@ class Filter extends React.Component {
         <Card.Group style={margins}>
           {_.map(projdata, (project, index) => <MakeCard2 key={index} project={project}/>)}
         </Card.Group>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </Container>
     );
   }
