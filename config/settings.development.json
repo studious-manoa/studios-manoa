@@ -83,6 +83,7 @@
   "defaultProjects": [
     {
       "name": "POST",
+      "submitter": "admin@foo.com",
       "homepage": "https://openpowerquality.org",
       "description": "Second floor of Post.",
       "lat": 21.2975,
@@ -101,6 +102,7 @@
     },
     {
       "name": "Hamilton Library",
+      "submitter": "admin@foo.com",
       "homepage": "https://radgrad.org",
       "description": "Air conditioned library.",
       "lat": 21.3005,
@@ -118,7 +120,7 @@
     },
     {
       "name": "Sinclair Library",
-      "homepage": "none",
+      "submitter": "admin@foo.com",
       "description": "Sinclair Library is another library",
       "lat": 21.29854,
       "long": -157.8204,
@@ -135,7 +137,7 @@
     },
     {
       "name": "Ba-Le",
-      "homepage": "none",
+      "submitter": "admin@foo.com",
       "description": "Asian fusion cuisine with a bar.",
       "lat": 21.2988,
       "long": -157.8197,
@@ -155,7 +157,7 @@
     },
     {
       "name": "Paradise Palms",
-      "homepage": "none",
+      "submitter": "admin@foo.com",
       "description": "Cafeteria with various foods.",
       "lat": 21.30088,
       "long": -157.81563,
@@ -178,6 +180,7 @@
     {
       "name": "Starbucks",
       "homepage": "http://lava.manoa.hawaii.edu/blog/2014/07/11/cyber-canoe-cyber-infrastructure-enabled-collaborative-analysis-navigation-and-observation-environment/",
+      "submitter": "admin@foo.com",
       "description": "Coffee shop with Wi-Fi.",
       "lat": 21.29855,
       "long": -157.81895,

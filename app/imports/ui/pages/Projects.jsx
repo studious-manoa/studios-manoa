@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Container, Loader, Card, Image, Label, Header, Rating } from 'semantic-ui-react';
+import { Container, Loader, Card, Image, Label, Header, Rating, Icon, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
@@ -89,6 +89,9 @@ class ProjectsPage extends React.Component {
           <Header as='h1' textAlign='center' inverted style={pageStyle}>Study Spots</Header>
           <MapLeaflet lat={21.2989} lng={-157.817} zoom={17} locations={locations}> </MapLeaflet>
           <Container>
+            <div style={ { display: 'flex', justifyContent: 'center', alignItems: 'center' } }>
+              <Link to='/addlocation'><Icon name='plus'/>&nbsp;Add a study spot</Link>
+            </div>
             <Card.Group centered style={cardStyle}>
               {_.map(projectData, (project, index) => <MakeCard key={index} project={project}/>)}
             </Card.Group>

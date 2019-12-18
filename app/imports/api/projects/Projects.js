@@ -14,6 +14,7 @@ const Projects = new Mongo.Collection(projectsName);
  */
 const ProjectSchema = new SimpleSchema({
   name: { type: String, index: true, unique: true },
+  submitter: { type: String, index: true, optional: true },
   homepage: { type: String, optional: true },
   description: { type: String },
   picture: { type: String },
