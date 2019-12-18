@@ -18,11 +18,9 @@ function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
   const ratings = _.pluck(Reviews.find({ location: data._id }).fetch(), 'rating');
-  console.log(Reviews.find({ location: data._id }));
   let avgRating;
   if (ratings.length !== 0) avgRating = _.reduce(ratings, (a, b) => a + b) / ratings.length;
   else avgRating = 0;
-  if (name === 'POST') console.log(avgRating);
   const profiles = _.pluck(ProfilesProjects.find({ project: name }).fetch(), 'profile');
   const profilePictures = profiles.map(profile => Profiles.findOne({ email: profile }).picture);
   return _.extend({}, data, { tags, avgRating, participants: profilePictures });
