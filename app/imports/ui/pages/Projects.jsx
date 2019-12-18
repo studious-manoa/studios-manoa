@@ -17,11 +17,6 @@ import { ProjectsRatings, projectsRatingsValue } from '../../api/projects/Projec
 function getProjectData(name) {
   const data = Projects.findOne({ name });
   const tags = _.pluck(ProjectsTags.find({ project: name }).fetch(), 'tag');
-<<<<<<< HEAD
-  const ratings = _.pluck(ProjectsRatings.find({ project: name }).fetch(), 'rating');
-  const avgRating = ratings.reduce((a, b) => a + b, 0) / ratings.length;
-  return _.extend({}, data, { tags, avgRating });
-=======
   const ratings = _.pluck(Reviews.find({ location: data._id }).fetch(), 'rating');
   console.log(Reviews.find({ location: data._id }));
   let avgRating;
